@@ -49,7 +49,7 @@ class StockData:
         print('End Date: ' + end_date.strftime("%Y-%m-%d"))
         data = yf.download([self._stock.get_ticker()], start=self._stock.get_start_date(), end=end_date)[['Close']]
         data = data.reset_index()
-        data.to_csv(f'{self._stock.get_ticker()}_downloaded_data.csv')
+        data.to_csv(os.path.join(f'{self._stock.get_ticker()}',f'{self._stock.get_ticker()}_download_data.csv'))
 
         training_data = data[data['Date'] < self._stock.get_validation_date()].copy()
         val_data = data[data['Date'] >= self._stock.get_validation_date()].copy()
@@ -84,6 +84,8 @@ class StockData:
         x_val, y_val = np.array(x_val), np.array(y_val)
         x_val = np.reshape(x_val, (x_val.shape[0], x_val.shape[1], 1))
         return (x_train, y_train), (x_val, y_val), (training_data, val_data)
+    
+
 
 
 

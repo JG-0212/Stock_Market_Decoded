@@ -13,9 +13,9 @@
 # limitations under the License.
 # ==============================================================================
 import os
-import secrets
 import pandas as pd
 import argparse
+import pickle
 from datetime import datetime
 
 import mlflow
@@ -40,8 +40,15 @@ def train_LSTM_network(stock):
 
         data = StockData(stock)
         plotter = Plotter(data.get_stock_short_name(), data.get_stock_currency(), stock.get_ticker())
-        (x_train, y_train), (x_test, y_test), (training_data, test_data) = data.download_transform_to_numpy(stock.get_time_steps())
-        plotter.plot_histogram_data_split(training_data, test_data, stock.get_validation_date())
+        (x_train, y_train), (x_val, y_val), (training_data, val_data) = data.download_transform_to_numpy(stock.get_time_steps())
+        
+        scaler = data.get_min_max()
+        with open(os.path.join(f"{stock.get_ticker()}",f"{stock.get_ticker()}_scaler.pkl"), "wb") as f:
+            pickle.dump(scaler, f)
+        
+        mlflow.log_artifact(os.path.join(f"{stock.get_ticker()}",f"{stock.get_ticker()}_scaler.pkl"))
+        
+        plotter.plot_histogram_data_split(training_data, val_data, stock.get_validation_date())
 
         lstm = LongShortTermMemory()
         model = lstm.create_model(x_train)
@@ -50,7 +57,7 @@ def train_LSTM_network(stock):
             x_train, y_train,
             epochs=stock.get_epochs(),
             batch_size=stock.get_batch_size(),
-            validation_data=(x_test, y_test),
+            validation_data=(x_val, y_val),
             callbacks=[lstm.get_callback()]
         )
 
@@ -58,29 +65,29 @@ def train_LSTM_network(stock):
         # model.save(os.path.join(stock.get_project_folder(), 'model_weights.h5'))
 
         # Save model to MLflow
-        mlflow.keras.log_model(model, "lstm_model")
+        mlflow.keras.log_model(model, "lstm_model", registered_model_name = f"{stock.get_ticker()}PredModel")
 
         # Log final metrics
-        baseline_results = model.evaluate(x_test, y_test, verbose=2)
+        baseline_results = model.evaluate(x_val, y_val, verbose=2)
         print(model.metrics_names[0], ': ', baseline_results)
         mlflow.log_metric(model.metrics_names[0], baseline_results)
 
         # Optionally log plots
         plotter.plot_loss(history)
         
-        test_predictions_baseline = model.predict(x_test)
-        test_predictions_baseline = data.get_min_max().inverse_transform(test_predictions_baseline)
-        test_predictions_baseline = pd.DataFrame(test_predictions_baseline)
-        test_predictions_baseline.rename(columns={0: stock.get_ticker() + '_predicted'}, inplace=True)
-        test_predictions_baseline = test_predictions_baseline.round(decimals=0)
-        test_predictions_baseline.index = test_data.index
-        test_predictions_baseline.to_csv(f'{stock.get_ticker()}_predictions.csv')
+        val_predictions_baseline = model.predict(x_val)
+        val_predictions_baseline = data.get_min_max().inverse_transform(val_predictions_baseline)
+        val_predictions_baseline = pd.DataFrame(val_predictions_baseline)
+        val_predictions_baseline.rename(columns={0: stock.get_ticker() + '_predicted'}, inplace=True)
+        val_predictions_baseline = val_predictions_baseline.round(decimals=0)
+        val_predictions_baseline.index = val_data.index
+        val_predictions_baseline.to_csv(os.path.join(f'{stock.get_ticker()}',f'{stock.get_ticker()}_predictions.csv'))
 
         # Optionally log predictions file
-        mlflow.log_artifact(f'{stock.get_ticker()}_predictions.csv')
+        mlflow.log_artifact(os.path.join(f'{stock.get_ticker()}',f'{stock.get_ticker()}_predictions.csv'))
 
         # Log plots if saved
-        plotter.project_plot_predictions(test_predictions_baseline, test_data)
+        plotter.project_plot_predictions(val_predictions_baseline, val_data)
         
         plot_base_name = f'{stock.get_ticker()}_'
         sub_names = ["loss.png", "price.png", "prediction.png"]

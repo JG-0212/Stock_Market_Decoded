@@ -13,10 +13,19 @@
 # limitations under the License.
 # ==============================================================================
 import os
-from absl import app
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+import requests
+import argparse
+import json
+import pickle
 import tensorflow as tf
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+
+import mlflow
+from mlflow.tracking import MlflowClient
 
 from stock_prediction_class import StockPrediction
 from stock_prediction_numpy import StockData
@@ -24,81 +33,55 @@ from datetime import timedelta, datetime
 
 # os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
 
+def argparser():
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('ticker', type=str, help="The name of the stock ticker.")
+    parser.add_argument('days', type=int, help="Number of days to run inference")
+    
+    return parser.parse_args()
+
 def main(argv):
-    print(tf.version.VERSION)
-    inference_folder = os.path.join(os.getcwd(), RUN_FOLDER)
-    stock = StockPrediction(STOCK_TICKER, STOCK_START_DATE, STOCK_VALIDATION_DATE, inference_folder, GITHUB_URL, EPOCHS, TIME_STEPS, TOKEN, BATCH_SIZE)
+    
+    ticker = argv.ticker
+    days = argv.days 
+    
+    df = pd.read_csv(os.path.join(f'{ticker}',f'{ticker}_download_data.csv'))
+    input = np.array(df["Close"].tail(4)) 
+    input[:3] = input[1:]
+    
+    model_name = f"{ticker}PredModel"
+    client = MlflowClient()
 
-    data = StockData(stock)
-
-    (x_train, y_train), (x_test, y_test), (training_data, test_data) = data.download_transform_to_numpy(TIME_STEPS, inference_folder)
-    min_max = data.get_min_max()
-
-    # load future data
-    print('Latest Stock Price')
-    latest_close_price = test_data.Close.iloc[-1]
-    latest_date = test_data[-1:]['Close'].idxmin()
-    print(latest_close_price)
-    print('Latest Date')
-    print(latest_date)
-
-    tomorrow_date = latest_date + timedelta(1)
-    # Specify the next 300 days
-    next_year = latest_date + timedelta(TIME_STEPS * 100)
-
-    print('Future Date')
-    print(tomorrow_date)
-
-    print('Future Timespan Date')
-    print(next_year)
-
-    x_test, y_test, test_data = data.generate_future_data(TIME_STEPS, min_max, tomorrow_date, next_year, latest_close_price)
-
-    # Check if the future data is not empty
-    if x_test.shape[0] > 0:
-        # load the weights from our best model
-        model = tf.keras.models.load_model(os.path.join(inference_folder, 'model_weights.h5'))
-        model.summary()
-
-        # perform a prediction
-        test_predictions_baseline = model.predict(x_test)
-        test_predictions_baseline = min_max.inverse_transform(test_predictions_baseline)
-        test_predictions_baseline = pd.DataFrame(test_predictions_baseline, columns=['Predicted_Price'])
-
-        # Combine the predicted values with dates from the test data
-        predicted_dates = pd.date_range(start=test_data.index[0], periods=len(test_predictions_baseline))
-        test_predictions_baseline['Date'] = predicted_dates
+    version_info = client.get_latest_versions(model_name)[0]
+    
         
-        # Reset the index for proper concatenation
-        test_data.reset_index(inplace=True)
+    artifact_path = f"{ticker}_scaler.pkl"
+    local_path = mlflow.artifacts.download_artifacts(
+        run_id=version_info.run_id,
+        artifact_path=artifact_path
+        )
+    
+    with open(local_path, "rb") as f:
+        scaler = pickle.load(f)
+
+    preds = []
+    url = "http://localhost:8000/invocations"
+    while(days>0):
+        pass_input = scaler.transform(input[:-1].reshape(-1,1)).reshape(1,-1).tolist()
         
-        # Concatenate the test_data and predicted data
-        combined_data = pd.concat([test_data, test_predictions_baseline], ignore_index=True)
+        response = requests.post(url, data=json.dumps({"inputs":pass_input}), headers={"Content-Type": "application/json"})
+        pred = response.json()["predictions"]
+
+        out = scaler.inverse_transform(pred)[0][0]
+        input[-1] = out
+        preds.append(out)
+        input[:3] = input[1:]
         
-        # Plotting predictions
-        plt.figure(figsize=(14, 5))
-        plt.plot(combined_data['Date'], combined_data.Close, color='green', label='Simulated [' + STOCK_TICKER + '] price')
-        plt.plot(combined_data['Date'], combined_data['Predicted_Price'], color='red', label='Predicted [' + STOCK_TICKER + '] price')
-        plt.xlabel('Time')
-        plt.ylabel('Price [USD]')
-        plt.legend()
-        plt.title('Simulated vs Predicted Prices')
-        plt.savefig(os.path.join(inference_folder, STOCK_TICKER + '_future_comparison.png'))
-        plt.show()
-    else:
-        print("Error: Future data is empty.")
+        days -= 1
+    plt.plot(preds)
+    plt.show()
 
 if __name__ == '__main__':
-    TIME_STEPS = 3
-    RUN_FOLDER = '^FTSE_20240103_edae6b8f5fc742031805151aeba98571'
-    TOKEN = 'edae6b8f5fc742031805151aeba98571'
-    STOCK_TICKER = '^FTSE'
-    BATCH_SIZE = 10
-    STOCK_START_DATE = pd.to_datetime('2017-11-01')
-    start_date = pd.to_datetime('2017-01-01')
-    end_date = datetime.today()
-    duration = end_date - start_date
-    STOCK_VALIDATION_DATE = start_date + 0.8 * duration
-    GITHUB_URL = "https://github.com/JordiCorbilla/stock-prediction-deep-neural-learning/raw/master/"
-    EPOCHS = 100
-    app.run(main)
+    argv = argparser()
+    main(argv)

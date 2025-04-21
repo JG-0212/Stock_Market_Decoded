@@ -32,11 +32,11 @@ class Plotter:
         plt.xlabel("Date")
         plt.legend(["Training Data", "Validation Data >= " + validation_date.strftime("%Y-%m-%d")])
         plt.title(self.short_name)
-        plt.savefig(f'{self.stock_ticker}_price.png')
+        plt.savefig(os.path.join(f'{self.stock_ticker}',f'{self.stock_ticker}_price.png'))
 
         fig, ax = plt.subplots()
         training_data.hist(ax=ax)
-        fig.savefig(f'{self.stock_ticker}_hist.png')
+        fig.savefig(os.path.join(f'{self.stock_ticker}',f'{self.stock_ticker}_hist.png'))
         plt.clf()
 
 
@@ -48,7 +48,7 @@ class Plotter:
         plt.ylabel('Loss')
         plt.title('Loss/Validation Loss')
         plt.legend(loc='upper right')
-        plt.savefig(f'{self.stock_ticker}_loss.png')
+        plt.savefig(os.path.join(f'{self.stock_ticker}',f'{self.stock_ticker}_loss.png'))
         plt.clf()
 
 
@@ -61,5 +61,5 @@ class Plotter:
         plt.ylabel('Price [' + self.currency + ']')
         plt.legend()
         plt.title('Prediction')
-        plt.savefig(f'{self.stock_ticker}_prediction.png')
+        plt.savefig(os.path.join(f'{self.stock_ticker}',f'{self.stock_ticker}_prediction.png'))
         plt.clf()
