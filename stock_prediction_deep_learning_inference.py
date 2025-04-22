@@ -32,19 +32,27 @@ from stock_prediction_numpy import StockData
 from datetime import timedelta, datetime
 
 # os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
+def plot_predictions(stock_ticker, val_preds, val_data, future_preds=None):
+    print("plotting predictions")
+    plt.figure(figsize=(14, 5))
+    plt.plot(val_preds[stock_ticker + '_predicted'], color='red', label='Predicted prices')
+    if future_preds is not None:
+        start = val_data.shape[0]-2
+        ticks = range(start, start+len(future_preds))
+        plt.plot(ticks, future_preds, color='blue', label="Future predictions")
+    plt.plot(np.array(val_data.Close[2:],dtype='float32'), color='green', label='Actual prices')
+    plt.xlabel('Time')
+    plt.ylabel('Price')
+    plt.legend()
+    plt.title('Prediction')
+    # plt.savefig(os.path.join(f'{self.stock_ticker}',f'{self.stock_ticker}_prediction.png'))
+    # plt.show()
+    return plt.gcf()
 
-def argparser():
-    parser = argparse.ArgumentParser()
-
-    parser.add_argument('ticker', type=str, help="The name of the stock ticker.")
-    parser.add_argument('days', type=int, help="Number of days to run inference")
+def give_preds_and_plots(ticker, days):
     
-    return parser.parse_args()
-
-def main(argv):
-    
-    ticker = argv.ticker
-    days = argv.days 
+    # ticker = argv.ticker
+    # days = argv.days 
     
     df = pd.read_csv(os.path.join(f'{ticker}',f'{ticker}_download_data.csv'))
     input = np.array(df["Close"].tail(4)) 
@@ -64,6 +72,26 @@ def main(argv):
     
     with open(local_path, "rb") as f:
         scaler = pickle.load(f)
+    
+    pred_path = f"{ticker}_predictions.csv"
+    actual_path = f"{ticker}_actual.csv"
+    
+    pred_local_path = mlflow.artifacts.download_artifacts(
+        run_id=version_info.run_id,
+        artifact_path=pred_path
+        )
+    actual_local_path = mlflow.artifacts.download_artifacts(
+        run_id=version_info.run_id,
+        artifact_path=actual_path
+        )
+    
+    with open(pred_local_path, "rb") as f:
+        val_preds = pd.read_csv(f)
+    
+    with open(actual_local_path, "rb") as f:
+        val_data = pd.read_csv(f)
+    
+
 
     preds = []
     url = "http://localhost:8000/invocations"
@@ -79,9 +107,9 @@ def main(argv):
         input[:3] = input[1:]
         
         days -= 1
-    plt.plot(preds)
-    plt.show()
+    
+    return plot_predictions(ticker, val_preds, val_data, preds)
 
 if __name__ == '__main__':
-    argv = argparser()
-    main(argv)
+    # argv = argparser()
+    give_preds_and_plots()

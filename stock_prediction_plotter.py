@@ -23,14 +23,14 @@ class Plotter:
         self.currency = currency
         self.stock_ticker = stock_ticker
 
-    def plot_histogram_data_split(self, training_data, test_data, validation_date):
+    def plot_histogram_data_split(self, training_data, val_data, validation_date):
         print("plotting Data and Histogram")
         plt.figure(figsize=(12, 5))
-        plt.plot(training_data.Close, color='green')
-        plt.plot(test_data.Close, color='red')
+        plt.plot(training_data.Close, color='green', label="Training Data")
+        plt.plot(val_data.Close, color='red', label="Validation Data >= " + validation_date.strftime("%Y-%m-%d"))
         plt.ylabel('Price [' + self.currency + ']')
         plt.xlabel("Date")
-        plt.legend(["Training Data", "Validation Data >= " + validation_date.strftime("%Y-%m-%d")])
+        plt.legend()
         plt.title(self.short_name)
         plt.savefig(os.path.join(f'{self.stock_ticker}',f'{self.stock_ticker}_price.png'))
 
@@ -52,11 +52,15 @@ class Plotter:
         plt.clf()
 
 
-    def project_plot_predictions(self, price_predicted, test_data):
+    def project_plot_predictions(self, val_preds, val_data, future_preds=None):
         print("plotting predictions")
         plt.figure(figsize=(14, 5))
-        plt.plot(price_predicted[self.stock_ticker + '_predicted'], color='red', label='Predicted [' + self.short_name + '] price')
-        plt.plot(test_data.Close, color='green', label='Actual [' + self.short_name + '] price')
+        plt.plot(val_preds[self.stock_ticker + '_predicted'], color='red', label='Predicted [' + self.short_name + '] price')
+        if future_preds is not None:
+            start = val_data.shape[0]
+            ticks = range(start, start+len(future_preds))
+            plt.plot(ticks, future_preds, color='blue', label="Predictions")
+        plt.plot(val_data.Close, color='green', label='Actual [' + self.short_name + '] price')
         plt.xlabel('Time')
         plt.ylabel('Price [' + self.currency + ']')
         plt.legend()

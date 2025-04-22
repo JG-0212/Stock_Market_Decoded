@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 import pandas as pd
+from stock_prediction_deep_learning_inference import *
 
 
 st.title("📈 Stock Prediction App")
@@ -17,18 +18,13 @@ if st.button("Predict"):
         try:
             with st.spinner("Fetching prediction..."):
                 # Make the API call with both ticker and number of days
-                response = requests.get(
-                    f"http://localhost:5000/predict?symbol={ticker}&days={num_days}"
-                )
-                data = response.json()
-                dates = data["dates"]
-                prices = data["predicted_prices"]
-
-                # Create and display a DataFrame
-                df = pd.DataFrame({"Date": dates, "Predicted Price": prices})
-                df["Date"] = pd.to_datetime(df["Date"])
-
-                st.line_chart(df.set_index("Date"))
+                fig = give_preds_and_plots(ticker, num_days)
+                
+                if fig:
+                    # Display the plot
+                    st.pyplot(fig)  # Render the plot in Streamlit
+                else:
+                    st.error("Failed to generate prediction plot. Please try again.")
 
         except Exception as e:
             st.error(f"Failed to fetch prediction: {e}")

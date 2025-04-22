@@ -82,9 +82,12 @@ def train_LSTM_network(stock):
         val_predictions_baseline = val_predictions_baseline.round(decimals=0)
         val_predictions_baseline.index = val_data.index
         val_predictions_baseline.to_csv(os.path.join(f'{stock.get_ticker()}',f'{stock.get_ticker()}_predictions.csv'))
+        val_data.to_csv(os.path.join(f'{stock.get_ticker()}',f'{stock.get_ticker()}_actual.csv'))
 
         # Optionally log predictions file
         mlflow.log_artifact(os.path.join(f'{stock.get_ticker()}',f'{stock.get_ticker()}_predictions.csv'))
+        mlflow.log_artifact(os.path.join(f'{stock.get_ticker()}',f'{stock.get_ticker()}_actual.csv'))
+    
 
         # Log plots if saved
         plotter.project_plot_predictions(val_predictions_baseline, val_data)
