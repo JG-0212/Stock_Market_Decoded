@@ -1,0 +1,15 @@
+artifact_uri: file:///home/jayagowtham/Documents/mlapp/mlruns/801017179637299962/2d51b53acca74b218d8230abd1ff3182/artifacts
+end_time: 1745691735209
+entry_point_name: ''
+experiment_id: '801017179637299962'
+lifecycle_stage: active
+run_id: 2d51b53acca74b218d8230abd1ff3182
+run_name: GOOG_2025-04-26
+run_uuid: 2d51b53acca74b218d8230abd1ff3182
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745691624811
+status: 3
+tags: []
+user_id: jayagowtham
