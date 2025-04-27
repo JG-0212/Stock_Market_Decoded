@@ -1,4 +1,10 @@
+import yaml
 from datetime import datetime
+
+def read_yaml(filename):
+    with open(filename) as f:
+        config = yaml.safe_load(f)
+    return config
 
 def get_jan_first_years_ago(years_back):
     today = datetime.today()

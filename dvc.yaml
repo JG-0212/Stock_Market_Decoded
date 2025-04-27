@@ -1,0 +1,43 @@
+stages:
+  fetch:
+    cmd: python3 scripts/fetch.py
+    outs:
+    - data/GOOG/GOOG_data.csv
+    - data/GOOG/GOOG_run_id.txt
+    params:
+    - base.ticker
+    - base.epochs
+    - base.time_steps
+    - base.patience
+    - base.batch_size
+
+  preprocess:
+    cmd: python3 scripts/preprocess.py
+    deps:
+    - data/GOOG/GOOG_data.csv
+    - data/GOOG/GOOG_run_id.txt
+    outs:
+    - data/GOOG/GOOG_scaler.pkl
+    - data/GOOG/GOOG_x_train.npy
+    - data/GOOG/GOOG_y_train.npy
+    - data/GOOG/GOOG_x_val.npy
+    - data/GOOG/GOOG_y_val.npy
+    - data/GOOG/GOOG_training_data.csv
+    - data/GOOG/GOOG_val_data.csv
+
+  train:
+    cmd: python3 scripts/train.py
+    deps:
+    - data/GOOG/GOOG_scaler.pkl
+    - data/GOOG/GOOG_x_train.npy
+    - data/GOOG/GOOG_y_train.npy
+    - data/GOOG/GOOG_x_val.npy
+    - data/GOOG/GOOG_y_val.npy
+    - data/GOOG/GOOG_training_data.csv
+    - data/GOOG/GOOG_val_data.csv
+    outs:
+    - data/GOOG/GOOG_feature_histograms.png
+    - data/GOOG/GOOG_loss.png
+    - data/GOOG/GOOG_predictions.png
+    - data/GOOG/GOOG_predictions.csv
+    - data/GOOG/GOOG_actual.csv

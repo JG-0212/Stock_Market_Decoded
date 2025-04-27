@@ -5,7 +5,7 @@ import mlflow
 import pandas as pd
 import yfinance as yf
 
-from utils.helpers import get_jan_first_years_ago
+from utils.helpers import get_jan_first_years_ago, read_yaml
 
 if __name__ == '__main__':
     
@@ -14,8 +14,9 @@ if __name__ == '__main__':
     mlflow.set_tracking_uri("http://localhost:5000")
     default_start_date = get_jan_first_years_ago(8).strftime("%Y-%m-%d")
 
+    config = read_yaml('params.yaml')
     #parameters
-    ticker = 'GOOG'
+    ticker = config["base"]["ticker"]
     start_date = pd.to_datetime(default_start_date)
     end_date = pd.to_datetime(datetime.today())
     

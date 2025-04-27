@@ -7,17 +7,18 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 import mlflow
 
-from utils.helpers import get_jan_first_years_ago, data_statistics
+from utils.helpers import get_jan_first_years_ago, data_statistics, read_yaml
 
 if __name__ == '__main__':
     default_start_date = get_jan_first_years_ago(8).strftime("%Y-%m-%d")
     default_val_date = get_jan_first_years_ago(2).strftime("%Y-%m-%d")
     
+    config = read_yaml('params.yaml')
     #parameters
-    ticker = 'GOOG'
+    ticker = config["base"]["ticker"]
     start_date = pd.to_datetime(default_start_date)
     val_date = pd.to_datetime(default_val_date)
-    time_steps = 3
+    time_steps = config["base"]["time_steps"]
     
     #configurable
     base_path = "/home/jayagowtham/Documents/mlapp/data"

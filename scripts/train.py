@@ -8,15 +8,18 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 import mlflow
 
+from utils.helpers import read_yaml
 from utils.lstm_model import LongShortTermMemory
 from utils.plotters import plot_histogram_data_split, plot_loss, plot_predictions
 
 if __name__ == '__main__':
+    
+    config = read_yaml("params.yaml")
     #parameters
-    ticker = 'GOOG'
-    patience = 3
-    epochs = 100
-    batch_size = 10
+    ticker = config["base"]["ticker"]
+    patience = config["base"]["patience"]
+    epochs = config["base"]["epochs"]
+    batch_size = config["base"]["batch_size"]
     
     #configurable
     base_path = "/home/jayagowtham/Documents/mlapp/data"
