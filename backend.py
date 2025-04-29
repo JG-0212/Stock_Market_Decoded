@@ -1,50 +1,22 @@
 
-from datetime import timedelta, datetime
-from stock_prediction_numpy import StockData
-from stock_prediction_class import StockPrediction
-from mlflow.tracking import MlflowClient
-import mlflow
-import matplotlib.pyplot as plt
+import os
+import time
 import pandas as pd
 import numpy as np
-import tensorflow as tf
 import pickle
 import json
-import argparse
+import socket
+
+import mlflow
 import requests
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
-
-
-# os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
-
-def plot_predictions(stock_ticker, val_preds, val_data, future_preds=None):
-    print("plotting predictions")
-    plt.figure(figsize=(14, 5))
-    plt.plot(val_preds[stock_ticker + '_predicted'],
-             color='red', label='Predicted prices')
-    if future_preds is not None:
-        start = val_data.shape[0]-2
-        ticks = range(start, start+len(future_preds))
-        plt.plot(ticks, future_preds, color='blue', label="Future predictions")
-    plt.plot(np.array(
-        val_data.Close[2:], dtype='float32'), color='green', label='Actual prices')
-    plt.xlabel('Time')
-    plt.ylabel('Price')
-    plt.legend()
-    plt.title('Prediction')
-    # plt.savefig(os.path.join(f'{self.stock_ticker}',f'{self.stock_ticker}_prediction.png'))
-    # plt.show()
-    return plt.gcf()
-
+import matplotlib.pyplot as plt
+from mlflow.tracking import MlflowClient
 
 def give_preds_and_plots(ticker, days):
 
-    # ticker = argv.ticker
-    # days = argv.days
-
-    df = pd.read_csv(os.path.join(f'{ticker}', f'{ticker}_download_data.csv'))
+    base_path = "/home/jayagowtham/Documents/mlapp/data"
+    directory_path = os.path.join(base_path,ticker)
+    df = pd.read_csv(os.path.join(directory_path, f"{ticker}_data.csv"))
     input = np.array(df["Close"].tail(4))
     input[:3] = input[1:]
 
@@ -81,7 +53,9 @@ def give_preds_and_plots(ticker, days):
         val_data = pd.read_csv(f)
 
     preds = []
+    #configurable
     url = "http://localhost:8000/invocations"
+    
     while (days > 0):
         pass_input = scaler.transform(
             input[:-1].reshape(-1, 1)).reshape(1, -1).tolist()
@@ -96,10 +70,26 @@ def give_preds_and_plots(ticker, days):
         input[:3] = input[1:]
 
         days -= 1
-
+        
+    def plot_predictions(stock_ticker, val_preds, val_data, future_preds=None):
+        print("plotting predictions")
+        plt.figure(figsize=(14, 5))
+        plt.plot(val_preds[stock_ticker + '_predicted'],
+                color='red', label='Predicted prices')
+        if future_preds is not None:
+            start = val_data.shape[0]-2
+            ticks = range(start, start+len(future_preds))
+            plt.plot(ticks, future_preds, color='blue', label="Future predictions")
+        plt.plot(np.array(
+            val_data.Close[2:], dtype='float32'), color='green', label='Actual prices')
+        plt.xlabel('Time')
+        plt.ylabel('Price')
+        plt.legend()
+        plt.title('Prediction')
+        return plt.gcf()
+    
     return plot_predictions(ticker, val_preds, val_data, preds)
 
 
 if __name__ == '__main__':
-    # argv = argparser()
-    give_preds_and_plots()
+    pass

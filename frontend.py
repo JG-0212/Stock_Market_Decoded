@@ -1,9 +1,19 @@
 import streamlit as st
-import requests
-import pandas as pd
-from stock_prediction_deep_learning_inference import *
+import socket
+from prometheus_client import Summary, Counter, disable_created_metrics, start_http_server
+from backend import give_preds_and_plots
 
+@st.cache_resource
+def start_metrics_server():
+    start_http_server(18000)  # Starts /metrics endpoint on localhost:18000
+    disable_created_metrics()
+    api_usage = Summary('ab', 'API run time monitoring')
+    counter = Counter('cd', 'Number of times that API is called', ['client'])
+    print("✅ Prometheus metrics server started on http://localhost:18000")
+    
+    return api_usage, counter
 
+api_usage, counter = start_metrics_server()
 st.title("📈 Stock Prediction App")
 
 # User inputs
@@ -18,7 +28,11 @@ if st.button("Predict"):
         try:
             with st.spinner("Fetching prediction..."):
                 # Make the API call with both ticker and number of days
-                fig = give_preds_and_plots(ticker, num_days)
+                print("Incrementing metrics")
+                hostname = socket.gethostname()
+                ip = socket.gethostbyname(hostname)
+                counter.labels(client=ip).inc()
+                fig = api_usage.time()(give_preds_and_plots)(ticker, num_days)
                 
                 if fig:
                     # Display the plot
