@@ -1,0 +1,43 @@
+stages:
+  fetch:
+    cmd: python3 ../scripts/fetch.py
+    outs:
+    - ../data/AAPL/AAPL_data.csv
+    - ../data/AAPL/AAPL_run_id.txt
+    params:
+    - base.ticker
+    - base.epochs
+    - base.time_steps
+    - base.patience
+    - base.batch_size
+
+  preprocess:
+    cmd: python3 ../scripts/preprocess.py
+    deps:
+    - ../data/AAPL/AAPL_data.csv
+    - ../data/AAPL/AAPL_run_id.txt
+    outs:
+    - ../data/AAPL/AAPL_scaler.pkl
+    - ../data/AAPL/AAPL_x_train.npy
+    - ../data/AAPL/AAPL_y_train.npy
+    - ../data/AAPL/AAPL_x_val.npy
+    - ../data/AAPL/AAPL_y_val.npy
+    - ../data/AAPL/AAPL_training_data.csv
+    - ../data/AAPL/AAPL_val_data.csv
+
+  train:
+    cmd: python3 ../scripts/train.py
+    deps:
+    - ../data/AAPL/AAPL_scaler.pkl
+    - ../data/AAPL/AAPL_x_train.npy
+    - ../data/AAPL/AAPL_y_train.npy
+    - ../data/AAPL/AAPL_x_val.npy
+    - ../data/AAPL/AAPL_y_val.npy
+    - ../data/AAPL/AAPL_training_data.csv
+    - ../data/AAPL/AAPL_val_data.csv
+    outs:
+    - ../data/AAPL/AAPL_feature_histograms.png
+    - ../data/AAPL/AAPL_loss.png
+    - ../data/AAPL/AAPL_predictions.png
+    - ../data/AAPL/AAPL_predictions.csv
+    - ../data/AAPL/AAPL_actual.csv

@@ -14,6 +14,8 @@ from utils.plotters import plot_histogram_data_split, plot_loss, plot_prediction
 
 if __name__ == '__main__':
     
+    
+    mlflow.set_tracking_uri("http://localhost:5000")
     config = read_yaml("params.yaml")
     #parameters
     ticker = config["base"]["ticker"]

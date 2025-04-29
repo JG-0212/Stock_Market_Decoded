@@ -1,0 +1,112 @@
+schema: '2.0'
+stages:
+  fetch:
+    cmd: python3 ../scripts/fetch.py
+    params:
+      params.yaml:
+        base.batch_size: 10
+        base.epochs: 100
+        base.patience: 3
+        base.ticker: GOOG
+        base.time_steps: 3
+    outs:
+    - path: ../data/GOOG/GOOG_data.csv
+      hash: md5
+      md5: a86aba3b602258fcba689ecda1fa889b
+      size: 61248
+    - path: ../data/GOOG/GOOG_run_id.txt
+      hash: md5
+      md5: 48804e133443dcb67f996eefadc06b5f
+      size: 32
+  preprocess:
+    cmd: python3 ../scripts/preprocess.py
+    deps:
+    - path: ../data/GOOG/GOOG_data.csv
+      hash: md5
+      md5: a86aba3b602258fcba689ecda1fa889b
+      size: 61248
+    - path: ../data/GOOG/GOOG_run_id.txt
+      hash: md5
+      md5: 48804e133443dcb67f996eefadc06b5f
+      size: 32
+    outs:
+    - path: ../data/GOOG/GOOG_scaler.pkl
+      hash: md5
+      md5: 36c4e5145c5539dcd388eb905383cb76
+      size: 616
+    - path: ../data/GOOG/GOOG_training_data.csv
+      hash: md5
+      md5: baf7c8d75e291dc2d9f003d74b30d8ed
+      size: 44142
+    - path: ../data/GOOG/GOOG_val_data.csv
+      hash: md5
+      md5: 8a4d7a4cebc36e41387da87b3aac4056
+      size: 17111
+    - path: ../data/GOOG/GOOG_x_train.npy
+      hash: md5
+      md5: 8bf4ff278b55fd076a60b26361877fa4
+      size: 36296
+    - path: ../data/GOOG/GOOG_x_val.npy
+      hash: md5
+      md5: 39a8ef62cc39253de62fc4f9a4c612f6
+      size: 14072
+    - path: ../data/GOOG/GOOG_y_train.npy
+      hash: md5
+      md5: d792b9f9282153726828cd1c8ed8b57c
+      size: 12184
+    - path: ../data/GOOG/GOOG_y_val.npy
+      hash: md5
+      md5: 0f9b6bc31b2cd6039edc19324fb05ac9
+      size: 4776
+  train:
+    cmd: python3 ../scripts/train.py
+    deps:
+    - path: ../data/GOOG/GOOG_scaler.pkl
+      hash: md5
+      md5: 36c4e5145c5539dcd388eb905383cb76
+      size: 616
+    - path: ../data/GOOG/GOOG_training_data.csv
+      hash: md5
+      md5: baf7c8d75e291dc2d9f003d74b30d8ed
+      size: 44142
+    - path: ../data/GOOG/GOOG_val_data.csv
+      hash: md5
+      md5: 8a4d7a4cebc36e41387da87b3aac4056
+      size: 17111
+    - path: ../data/GOOG/GOOG_x_train.npy
+      hash: md5
+      md5: 8bf4ff278b55fd076a60b26361877fa4
+      size: 36296
+    - path: ../data/GOOG/GOOG_x_val.npy
+      hash: md5
+      md5: 39a8ef62cc39253de62fc4f9a4c612f6
+      size: 14072
+    - path: ../data/GOOG/GOOG_y_train.npy
+      hash: md5
+      md5: d792b9f9282153726828cd1c8ed8b57c
+      size: 12184
+    - path: ../data/GOOG/GOOG_y_val.npy
+      hash: md5
+      md5: 0f9b6bc31b2cd6039edc19324fb05ac9
+      size: 4776
+    outs:
+    - path: ../data/GOOG/GOOG_actual.csv
+      hash: md5
+      md5: 98e7f2cfd8fa9e8f1abce117622871ed
+      size: 17089
+    - path: ../data/GOOG/GOOG_feature_histograms.png
+      hash: md5
+      md5: 77013760212734bd45057bb51b313964
+      size: 26358
+    - path: ../data/GOOG/GOOG_loss.png
+      hash: md5
+      md5: 6bf849896815a6eb2beb81fbd260acec
+      size: 36364
+    - path: ../data/GOOG/GOOG_predictions.csv
+      hash: md5
+      md5: 89a8ba7c6bf34a9e7bedc09ee09c0e62
+      size: 9842
+    - path: ../data/GOOG/GOOG_predictions.png
+      hash: md5
+      md5: 97292d7cba0aaca0306f15116e0bd2f3
+      size: 98864

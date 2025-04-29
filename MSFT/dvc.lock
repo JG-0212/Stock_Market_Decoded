@@ -1,0 +1,112 @@
+schema: '2.0'
+stages:
+  fetch:
+    cmd: python3 ../scripts/fetch.py
+    params:
+      params.yaml:
+        base.batch_size: 10
+        base.epochs: 100
+        base.patience: 3
+        base.ticker: MSFT
+        base.time_steps: 3
+    outs:
+    - path: ../data/MSFT/MSFT_data.csv
+      hash: md5
+      md5: 543968195e28b63dd49d8829037d8c24
+      size: 61000
+    - path: ../data/MSFT/MSFT_run_id.txt
+      hash: md5
+      md5: 6f7935dd5d29dfa91c9e48de6c46c70a
+      size: 32
+  preprocess:
+    cmd: python3 ../scripts/preprocess.py
+    deps:
+    - path: ../data/MSFT/MSFT_data.csv
+      hash: md5
+      md5: 543968195e28b63dd49d8829037d8c24
+      size: 61000
+    - path: ../data/MSFT/MSFT_run_id.txt
+      hash: md5
+      md5: 6f7935dd5d29dfa91c9e48de6c46c70a
+      size: 32
+    outs:
+    - path: ../data/MSFT/MSFT_scaler.pkl
+      hash: md5
+      md5: 26b348d61e6665fe8fc657467c6035d4
+      size: 616
+    - path: ../data/MSFT/MSFT_training_data.csv
+      hash: md5
+      md5: b5644b29c243ffa2b1b8c68fa1088df5
+      size: 44165
+    - path: ../data/MSFT/MSFT_val_data.csv
+      hash: md5
+      md5: d01b432197aee3f4c85a56ce2c658ac3
+      size: 16840
+    - path: ../data/MSFT/MSFT_x_train.npy
+      hash: md5
+      md5: d4b465a7d479092eba4c2a547196eeea
+      size: 36296
+    - path: ../data/MSFT/MSFT_x_val.npy
+      hash: md5
+      md5: 804a93dbabcb4a7e146050d80adcbb45
+      size: 14072
+    - path: ../data/MSFT/MSFT_y_train.npy
+      hash: md5
+      md5: bd029dae5c2f730af7b9faa6cd307856
+      size: 12184
+    - path: ../data/MSFT/MSFT_y_val.npy
+      hash: md5
+      md5: 1eb9593d5a10921be3513208f7289a11
+      size: 4776
+  train:
+    cmd: python3 ../scripts/train.py
+    deps:
+    - path: ../data/MSFT/MSFT_scaler.pkl
+      hash: md5
+      md5: 26b348d61e6665fe8fc657467c6035d4
+      size: 616
+    - path: ../data/MSFT/MSFT_training_data.csv
+      hash: md5
+      md5: b5644b29c243ffa2b1b8c68fa1088df5
+      size: 44165
+    - path: ../data/MSFT/MSFT_val_data.csv
+      hash: md5
+      md5: d01b432197aee3f4c85a56ce2c658ac3
+      size: 16840
+    - path: ../data/MSFT/MSFT_x_train.npy
+      hash: md5
+      md5: d4b465a7d479092eba4c2a547196eeea
+      size: 36296
+    - path: ../data/MSFT/MSFT_x_val.npy
+      hash: md5
+      md5: 804a93dbabcb4a7e146050d80adcbb45
+      size: 14072
+    - path: ../data/MSFT/MSFT_y_train.npy
+      hash: md5
+      md5: bd029dae5c2f730af7b9faa6cd307856
+      size: 12184
+    - path: ../data/MSFT/MSFT_y_val.npy
+      hash: md5
+      md5: 1eb9593d5a10921be3513208f7289a11
+      size: 4776
+    outs:
+    - path: ../data/MSFT/MSFT_actual.csv
+      hash: md5
+      md5: 541282908927218f1db5bf9ece006f80
+      size: 16777
+    - path: ../data/MSFT/MSFT_feature_histograms.png
+      hash: md5
+      md5: 6c5bd729ade80d9430ed99cac391cf8c
+      size: 23442
+    - path: ../data/MSFT/MSFT_loss.png
+      hash: md5
+      md5: 95fc4ff99b8186ea0b5cf9f240563b84
+      size: 41682
+    - path: ../data/MSFT/MSFT_predictions.csv
+      hash: md5
+      md5: 78415c1dca4efa5c12ce4bd4cc04f7b2
+      size: 9897
+    - path: ../data/MSFT/MSFT_predictions.png
+      hash: md5
+      md5: 395b8d55c29ab524822df80f5bd4a6b0
+      size: 92520

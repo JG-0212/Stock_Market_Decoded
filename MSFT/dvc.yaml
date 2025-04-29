@@ -1,0 +1,43 @@
+stages:
+  fetch:
+    cmd: python3 ../scripts/fetch.py
+    outs:
+    - ../data/MSFT/MSFT_data.csv
+    - ../data/MSFT/MSFT_run_id.txt
+    params:
+    - base.ticker
+    - base.epochs
+    - base.time_steps
+    - base.patience
+    - base.batch_size
+
+  preprocess:
+    cmd: python3 ../scripts/preprocess.py
+    deps:
+    - ../data/MSFT/MSFT_data.csv
+    - ../data/MSFT/MSFT_run_id.txt
+    outs:
+    - ../data/MSFT/MSFT_scaler.pkl
+    - ../data/MSFT/MSFT_x_train.npy
+    - ../data/MSFT/MSFT_y_train.npy
+    - ../data/MSFT/MSFT_x_val.npy
+    - ../data/MSFT/MSFT_y_val.npy
+    - ../data/MSFT/MSFT_training_data.csv
+    - ../data/MSFT/MSFT_val_data.csv
+
+  train:
+    cmd: python3 ../scripts/train.py
+    deps:
+    - ../data/MSFT/MSFT_scaler.pkl
+    - ../data/MSFT/MSFT_x_train.npy
+    - ../data/MSFT/MSFT_y_train.npy
+    - ../data/MSFT/MSFT_x_val.npy
+    - ../data/MSFT/MSFT_y_val.npy
+    - ../data/MSFT/MSFT_training_data.csv
+    - ../data/MSFT/MSFT_val_data.csv
+    outs:
+    - ../data/MSFT/MSFT_feature_histograms.png
+    - ../data/MSFT/MSFT_loss.png
+    - ../data/MSFT/MSFT_predictions.png
+    - ../data/MSFT/MSFT_predictions.csv
+    - ../data/MSFT/MSFT_actual.csv

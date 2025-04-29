@@ -10,6 +10,8 @@ import mlflow
 from utils.helpers import get_jan_first_years_ago, data_statistics, read_yaml
 
 if __name__ == '__main__':
+    
+    mlflow.set_tracking_uri("http://localhost:5000")
     default_start_date = get_jan_first_years_ago(8).strftime("%Y-%m-%d")
     default_val_date = get_jan_first_years_ago(2).strftime("%Y-%m-%d")
     
@@ -42,7 +44,7 @@ if __name__ == '__main__':
     val_data = val_data.set_index('Date')
 
     scaler = MinMaxScaler(feature_range=(0, 1))
-    train_scaled = scaler.fit_transform(training_data)
+    train_scaled = scaler.fit_transform(training_data.values)
     with open(os.path.join(directory_path,f"{ticker}_scaler.pkl"), "wb") as f:
         pickle.dump(scaler, f)
 
@@ -61,7 +63,7 @@ if __name__ == '__main__':
 
     total_data = pd.concat((training_data, val_data), axis=0)
     inputs = total_data[len(total_data) - len(val_data) - time_steps:]
-    val_scaled = scaler.transform(inputs)
+    val_scaled = scaler.transform(inputs.values)
 
     # Validation Data Transformation
     x_val = []

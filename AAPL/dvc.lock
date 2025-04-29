@@ -1,0 +1,112 @@
+schema: '2.0'
+stages:
+  fetch:
+    cmd: python3 ../scripts/fetch.py
+    params:
+      params.yaml:
+        base.batch_size: 10
+        base.epochs: 100
+        base.patience: 3
+        base.ticker: AAPL
+        base.time_steps: 3
+    outs:
+    - path: ../data/AAPL/AAPL_data.csv
+      hash: md5
+      md5: 6fd44ded04d9e8ba0921bd9b5ba557ce
+      size: 61430
+    - path: ../data/AAPL/AAPL_run_id.txt
+      hash: md5
+      md5: 893572c09ca05c0df005c7ecce919c70
+      size: 32
+  preprocess:
+    cmd: python3 ../scripts/preprocess.py
+    deps:
+    - path: ../data/AAPL/AAPL_data.csv
+      hash: md5
+      md5: 6fd44ded04d9e8ba0921bd9b5ba557ce
+      size: 61430
+    - path: ../data/AAPL/AAPL_run_id.txt
+      hash: md5
+      md5: 893572c09ca05c0df005c7ecce919c70
+      size: 32
+    outs:
+    - path: ../data/AAPL/AAPL_scaler.pkl
+      hash: md5
+      md5: a68644ae74235204b480d620d624b225
+      size: 616
+    - path: ../data/AAPL/AAPL_training_data.csv
+      hash: md5
+      md5: c1ebe86fe6fb7850151534019319afd8
+      size: 44296
+    - path: ../data/AAPL/AAPL_val_data.csv
+      hash: md5
+      md5: cb90a0a2d03cfe439939f6970e87a3de
+      size: 17139
+    - path: ../data/AAPL/AAPL_x_train.npy
+      hash: md5
+      md5: b1bf26d60202f54e70fd7aee4e8a98fb
+      size: 36296
+    - path: ../data/AAPL/AAPL_x_val.npy
+      hash: md5
+      md5: 2729ccf16fa2f758db96269aea8bebf5
+      size: 14072
+    - path: ../data/AAPL/AAPL_y_train.npy
+      hash: md5
+      md5: 4da259213f1a45e9b755cc69767398d7
+      size: 12184
+    - path: ../data/AAPL/AAPL_y_val.npy
+      hash: md5
+      md5: 276c567b0435823a76140c700d44d3f9
+      size: 4776
+  train:
+    cmd: python3 ../scripts/train.py
+    deps:
+    - path: ../data/AAPL/AAPL_scaler.pkl
+      hash: md5
+      md5: a68644ae74235204b480d620d624b225
+      size: 616
+    - path: ../data/AAPL/AAPL_training_data.csv
+      hash: md5
+      md5: c1ebe86fe6fb7850151534019319afd8
+      size: 44296
+    - path: ../data/AAPL/AAPL_val_data.csv
+      hash: md5
+      md5: cb90a0a2d03cfe439939f6970e87a3de
+      size: 17139
+    - path: ../data/AAPL/AAPL_x_train.npy
+      hash: md5
+      md5: b1bf26d60202f54e70fd7aee4e8a98fb
+      size: 36296
+    - path: ../data/AAPL/AAPL_x_val.npy
+      hash: md5
+      md5: 2729ccf16fa2f758db96269aea8bebf5
+      size: 14072
+    - path: ../data/AAPL/AAPL_y_train.npy
+      hash: md5
+      md5: 4da259213f1a45e9b755cc69767398d7
+      size: 12184
+    - path: ../data/AAPL/AAPL_y_val.npy
+      hash: md5
+      md5: 276c567b0435823a76140c700d44d3f9
+      size: 4776
+    outs:
+    - path: ../data/AAPL/AAPL_actual.csv
+      hash: md5
+      md5: fd44706255e22a2cfbf1d4ef542e62b0
+      size: 17079
+    - path: ../data/AAPL/AAPL_feature_histograms.png
+      hash: md5
+      md5: a92cd5b2bfb4a8b0aee8621922b55c83
+      size: 25765
+    - path: ../data/AAPL/AAPL_loss.png
+      hash: md5
+      md5: 6dee083727ed8080250c585c5f38b8b4
+      size: 37014
+    - path: ../data/AAPL/AAPL_predictions.csv
+      hash: md5
+      md5: b1d3a5b00e18fa67eab00c6c0941734f
+      size: 9897
+    - path: ../data/AAPL/AAPL_predictions.png
+      hash: md5
+      md5: 79f0629427dd6812dbc6254dfd0db816
+      size: 97118

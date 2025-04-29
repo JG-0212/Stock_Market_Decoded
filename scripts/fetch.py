@@ -10,8 +10,8 @@ from utils.helpers import get_jan_first_years_ago, read_yaml
 if __name__ == '__main__':
     
     
-    mlflow.set_experiment("Stock Price Forecasting")
     mlflow.set_tracking_uri("http://localhost:5000")
+    mlflow.set_experiment("Stock Price Forecasting")
     default_start_date = get_jan_first_years_ago(8).strftime("%Y-%m-%d")
 
     config = read_yaml('params.yaml')

@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/393362287489782283/9139f4520ee14f7e93388b3835f36f7b/artifacts
+end_time: 1745932852738
+entry_point_name: ''
+experiment_id: '393362287489782283'
+lifecycle_stage: active
+run_id: 9139f4520ee14f7e93388b3835f36f7b
+run_name: MSFT_2025-04-29
+run_uuid: 9139f4520ee14f7e93388b3835f36f7b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745932773672
+status: 3
+tags: []
+user_id: jayagowtham

@@ -12,11 +12,18 @@ import requests
 import matplotlib.pyplot as plt
 from mlflow.tracking import MlflowClient
 
-def give_preds_and_plots(ticker, days):
+mlflow.set_tracking_uri("http://localhost:5000")
 
-    base_path = "/home/jayagowtham/Documents/mlapp/data"
-    directory_path = os.path.join(base_path,ticker)
-    df = pd.read_csv(os.path.join(directory_path, f"{ticker}_data.csv"))
+TICKER_PORT_MAP = {
+    'AAPL' : 8000,
+    'GOOG' : 8001,
+    'MSFT' : 8002
+}
+    
+def give_preds(ticker, days):
+
+    base_path = f"/home/jayagowtham/Documents/mlapp/data/{ticker}"
+    df = pd.read_csv(os.path.join(base_path, f"{ticker}_data.csv"))
     input = np.array(df["Close"].tail(4))
     input[:3] = input[1:]
 
@@ -54,7 +61,7 @@ def give_preds_and_plots(ticker, days):
 
     preds = []
     #configurable
-    url = "http://localhost:8000/invocations"
+    url = f"http://localhost:{TICKER_PORT_MAP[ticker]}/invocations"
     
     while (days > 0):
         pass_input = scaler.transform(
@@ -71,24 +78,35 @@ def give_preds_and_plots(ticker, days):
 
         days -= 1
         
-    def plot_predictions(stock_ticker, val_preds, val_data, future_preds=None):
-        print("plotting predictions")
-        plt.figure(figsize=(14, 5))
-        plt.plot(val_preds[stock_ticker + '_predicted'],
-                color='red', label='Predicted prices')
-        if future_preds is not None:
-            start = val_data.shape[0]-2
-            ticks = range(start, start+len(future_preds))
-            plt.plot(ticks, future_preds, color='blue', label="Future predictions")
-        plt.plot(np.array(
-            val_data.Close[2:], dtype='float32'), color='green', label='Actual prices')
-        plt.xlabel('Time')
-        plt.ylabel('Price')
-        plt.legend()
-        plt.title('Prediction')
-        return plt.gcf()
+    return np.array(val_data.Close[1:]), val_preds[f"{ticker}_predicted"], preds
     
-    return plot_predictions(ticker, val_preds, val_data, preds)
+def plot_preds(ticker, days):
+    val_data, val_preds, future_preds = give_preds(ticker,days)
+    print("plotting predictions")
+    plt.figure(figsize=(14, 5))
+    plt.plot(val_preds,
+            color='red', label='Predicted prices')
+    start = val_data.shape[0]
+    ticks = range(start, start+len(future_preds))
+    plt.plot(ticks, future_preds, color='blue', label="Future predictions")
+    plt.plot(np.array(
+        val_data, dtype='float32'), color='green', label='Actual prices')
+    plt.xlabel('Time')
+    plt.ylabel('Price')
+    plt.legend()
+    plt.title('Prediction')
+    return plt.gcf()
+
+def compare_preds(ticker_list, days):
+    plt.figure(figsize=(14, 5))
+    for ticker in ticker_list:
+        _, _, future_preds = give_preds(ticker,days)
+        plt.plot(future_preds,  label=ticker)
+    plt.xlabel('Time')
+    plt.ylabel('Price')
+    plt.legend()
+    plt.title('Prediction')
+    return plt.gcf()
 
 
 if __name__ == '__main__':

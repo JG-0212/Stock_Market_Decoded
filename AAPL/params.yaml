@@ -1,0 +1,6 @@
+base:
+  ticker: AAPL
+  time_steps: 3
+  patience: 3
+  epochs: 100
+  batch_size: 10
