@@ -41,3 +41,4 @@ stages:
     - ../data/GOOG/GOOG_predictions.png
     - ../data/GOOG/GOOG_predictions.csv
     - ../data/GOOG/GOOG_actual.csv
+    - ../data/GOOG/GOOG_latest.txt

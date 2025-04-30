@@ -1,7 +1,7 @@
 import streamlit as st
 import socket
 from prometheus_client import Summary, Counter, disable_created_metrics, start_http_server
-from backend import plot_preds, compare_preds, TICKER_PORT_MAP  # Add your multi-stock function
+from frontend_utils import plot_preds, compare_preds, TICKER_PORT_MAP  # Add your multi-stock function
 
 @st.cache_resource
 def start_metrics_server():

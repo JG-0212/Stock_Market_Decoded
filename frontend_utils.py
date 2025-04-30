@@ -1,11 +1,9 @@
 
 import os
-import time
 import pandas as pd
 import numpy as np
 import pickle
 import json
-import socket
 
 import mlflow
 import requests
@@ -22,7 +20,7 @@ TICKER_PORT_MAP = {
     
 def give_preds(ticker, days):
 
-    base_path = f"/home/jayagowtham/Documents/mlapp/data/{ticker}"
+    base_path = f"data/{ticker}"
     df = pd.read_csv(os.path.join(base_path, f"{ticker}_data.csv"))
     input = np.array(df["Close"].tail(4))
     input[:3] = input[1:]

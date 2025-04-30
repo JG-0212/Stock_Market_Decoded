@@ -12,101 +12,105 @@ stages:
     outs:
     - path: ../data/MSFT/MSFT_data.csv
       hash: md5
-      md5: 543968195e28b63dd49d8829037d8c24
-      size: 61000
+      md5: 9098a2bc6175595764ab6f625abb17cb
+      size: 61151
     - path: ../data/MSFT/MSFT_run_id.txt
       hash: md5
-      md5: 6f7935dd5d29dfa91c9e48de6c46c70a
+      md5: 34475cc00ef6464845f8c5228ac2c30a
       size: 32
   preprocess:
     cmd: python3 ../scripts/preprocess.py
     deps:
     - path: ../data/MSFT/MSFT_data.csv
       hash: md5
-      md5: 543968195e28b63dd49d8829037d8c24
-      size: 61000
+      md5: 9098a2bc6175595764ab6f625abb17cb
+      size: 61151
     - path: ../data/MSFT/MSFT_run_id.txt
       hash: md5
-      md5: 6f7935dd5d29dfa91c9e48de6c46c70a
+      md5: 34475cc00ef6464845f8c5228ac2c30a
       size: 32
     outs:
     - path: ../data/MSFT/MSFT_scaler.pkl
       hash: md5
-      md5: 26b348d61e6665fe8fc657467c6035d4
-      size: 616
+      md5: adc46dab6144e8d1613f6df62b9e0f66
+      size: 522
     - path: ../data/MSFT/MSFT_training_data.csv
       hash: md5
-      md5: b5644b29c243ffa2b1b8c68fa1088df5
-      size: 44165
+      md5: 844c36c54e148ee0bfa04a7c949ff964
+      size: 44233
     - path: ../data/MSFT/MSFT_val_data.csv
       hash: md5
-      md5: d01b432197aee3f4c85a56ce2c658ac3
-      size: 16840
+      md5: e0ad5ebd21e5fec9e1d9c0b88009e03f
+      size: 16923
     - path: ../data/MSFT/MSFT_x_train.npy
       hash: md5
-      md5: d4b465a7d479092eba4c2a547196eeea
+      md5: 9cd0286a9bbae0fdb80878774086863a
       size: 36296
     - path: ../data/MSFT/MSFT_x_val.npy
       hash: md5
-      md5: 804a93dbabcb4a7e146050d80adcbb45
-      size: 14072
+      md5: b894f5a883aa5cda2435250ee524ec38
+      size: 14096
     - path: ../data/MSFT/MSFT_y_train.npy
       hash: md5
-      md5: bd029dae5c2f730af7b9faa6cd307856
+      md5: 38f690a9753209bf086ce1a0f4828a76
       size: 12184
     - path: ../data/MSFT/MSFT_y_val.npy
       hash: md5
-      md5: 1eb9593d5a10921be3513208f7289a11
-      size: 4776
+      md5: ea02e5d11ac985f28e0d833237be4cc3
+      size: 4784
   train:
     cmd: python3 ../scripts/train.py
     deps:
     - path: ../data/MSFT/MSFT_scaler.pkl
       hash: md5
-      md5: 26b348d61e6665fe8fc657467c6035d4
-      size: 616
+      md5: adc46dab6144e8d1613f6df62b9e0f66
+      size: 522
     - path: ../data/MSFT/MSFT_training_data.csv
       hash: md5
-      md5: b5644b29c243ffa2b1b8c68fa1088df5
-      size: 44165
+      md5: 844c36c54e148ee0bfa04a7c949ff964
+      size: 44233
     - path: ../data/MSFT/MSFT_val_data.csv
       hash: md5
-      md5: d01b432197aee3f4c85a56ce2c658ac3
-      size: 16840
+      md5: e0ad5ebd21e5fec9e1d9c0b88009e03f
+      size: 16923
     - path: ../data/MSFT/MSFT_x_train.npy
       hash: md5
-      md5: d4b465a7d479092eba4c2a547196eeea
+      md5: 9cd0286a9bbae0fdb80878774086863a
       size: 36296
     - path: ../data/MSFT/MSFT_x_val.npy
       hash: md5
-      md5: 804a93dbabcb4a7e146050d80adcbb45
-      size: 14072
+      md5: b894f5a883aa5cda2435250ee524ec38
+      size: 14096
     - path: ../data/MSFT/MSFT_y_train.npy
       hash: md5
-      md5: bd029dae5c2f730af7b9faa6cd307856
+      md5: 38f690a9753209bf086ce1a0f4828a76
       size: 12184
     - path: ../data/MSFT/MSFT_y_val.npy
       hash: md5
-      md5: 1eb9593d5a10921be3513208f7289a11
-      size: 4776
+      md5: ea02e5d11ac985f28e0d833237be4cc3
+      size: 4784
     outs:
     - path: ../data/MSFT/MSFT_actual.csv
       hash: md5
-      md5: 541282908927218f1db5bf9ece006f80
-      size: 16777
+      md5: 458305fb29f3b6f66bc77abc5195592f
+      size: 16849
     - path: ../data/MSFT/MSFT_feature_histograms.png
       hash: md5
       md5: 6c5bd729ade80d9430ed99cac391cf8c
       size: 23442
+    - path: ../data/MSFT/MSFT_latest.txt
+      hash: md5
+      md5: c81e728d9d4c2f636f067f89cc14862c
+      size: 1
     - path: ../data/MSFT/MSFT_loss.png
       hash: md5
-      md5: 95fc4ff99b8186ea0b5cf9f240563b84
-      size: 41682
+      md5: 04593eea4c52b4db50eb9e7fd09e5ec1
+      size: 35926
     - path: ../data/MSFT/MSFT_predictions.csv
       hash: md5
-      md5: 78415c1dca4efa5c12ce4bd4cc04f7b2
-      size: 9897
+      md5: 913066bb854dda35b4c9eee83f5510c1
+      size: 9914
     - path: ../data/MSFT/MSFT_predictions.png
       hash: md5
-      md5: 395b8d55c29ab524822df80f5bd4a6b0
-      size: 92520
+      md5: 1d99e11819d89772f9bf54b74f7138e4
+      size: 93097

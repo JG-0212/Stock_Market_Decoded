@@ -1,0 +1,37 @@
+services:
+  frontend:
+    image: python:3.10
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "8501:8501"    
+      - "18000:18000"    
+    command: >
+      bash -c "
+        pip install -r frontend_requirements.txt &&
+        streamlit run frontend.py
+      "
+    environment:
+      MLFLOW_TRACKING_URI: http://localhost:5000
+    depends_on:
+      backend: 
+        condition: service_healthy
+
+  backend:
+    image: tester
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "5000:5000"
+      - "8000:8000"
+      - "8001:8001"
+      - "8002:8002"
+    healthcheck:
+      test: ["CMD", "backend_healthcheck.sh"]
+      interval: 20s
+      timeout: 3s
+      retries: 25
+    environment:
+      MLFLOW_TRACKING_URI: http://localhost:5000

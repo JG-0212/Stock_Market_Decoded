@@ -41,3 +41,4 @@ stages:
     - ../data/MSFT/MSFT_predictions.png
     - ../data/MSFT/MSFT_predictions.csv
     - ../data/MSFT/MSFT_actual.csv
+    - ../data/MSFT/MSFT_latest.txt

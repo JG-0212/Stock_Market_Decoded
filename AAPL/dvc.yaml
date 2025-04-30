@@ -41,3 +41,4 @@ stages:
     - ../data/AAPL/AAPL_predictions.png
     - ../data/AAPL/AAPL_predictions.csv
     - ../data/AAPL/AAPL_actual.csv
+    - ../data/AAPL/AAPL_latest.txt

@@ -5,8 +5,9 @@ import pickle
 
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import MinMaxScaler
 import mlflow
+from mlflow.tracking import MlflowClient
+
 
 from utils.helpers import read_yaml
 from utils.lstm_model import LongShortTermMemory
@@ -24,7 +25,7 @@ if __name__ == '__main__':
     batch_size = config["base"]["batch_size"]
     
     #configurable
-    base_path = "/home/jayagowtham/Documents/mlapp/data"
+    base_path = "../data"
     directory_path = os.path.join(base_path, ticker)
     
     with open(os.path.join(directory_path,f"{ticker}_run_id.txt"), "r") as f:
@@ -103,6 +104,14 @@ if __name__ == '__main__':
             mlflow.log_artifact(plot_name)
 
     print("Model training is finished")
+    
+    model_name = f"{ticker}PredModel"
+    client = MlflowClient()
+
+    version_info = client.get_latest_versions(model_name)[0]
+    
+    with open(f"../data/{ticker}/{ticker}_latest.txt","w") as f:
+        f.write(str(version_info.version))
     mlflow.end_run()
 
 

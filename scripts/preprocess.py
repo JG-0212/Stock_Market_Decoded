@@ -23,7 +23,7 @@ if __name__ == '__main__':
     time_steps = config["base"]["time_steps"]
     
     #configurable
-    base_path = "/home/jayagowtham/Documents/mlapp/data"
+    base_path = "../data"
     directory_path = os.path.join(base_path, ticker)
     data = pd.read_csv(os.path.join(directory_path, f"{ticker}_data.csv"))
     data['Date'] = pd.to_datetime(data['Date'])

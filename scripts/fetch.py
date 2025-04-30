@@ -21,7 +21,7 @@ if __name__ == '__main__':
     end_date = pd.to_datetime(datetime.today())
     
     #configurable
-    base_path = "/home/jayagowtham/Documents/mlapp/data"
+    base_path = "../data"
     directory_path = os.path.join(base_path, ticker)
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)

@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1745943433786
+current_stage: None
+description: ''
+last_updated_timestamp: 1745943433786
+name: GOOGPredModel
+run_id: 90f966211076426082c01c5f024acc0e
+run_link: ''
+source: mlflow-artifacts:/393362287489782283/90f966211076426082c01c5f024acc0e/artifacts/lstm_model
+status: READY
+status_message: null
+storage_location: mlflow-artifacts:/393362287489782283/90f966211076426082c01c5f024acc0e/artifacts/lstm_model
+user_id: null
+version: 4
