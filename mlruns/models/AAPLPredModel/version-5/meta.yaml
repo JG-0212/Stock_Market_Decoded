@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1745994944174
+current_stage: None
+description: ''
+last_updated_timestamp: 1745994944174
+name: AAPLPredModel
+run_id: b4a2a50100514968979d1678845cc1dd
+run_link: ''
+source: mlflow-artifacts:/393362287489782283/b4a2a50100514968979d1678845cc1dd/artifacts/lstm_model
+status: READY
+status_message: null
+storage_location: mlflow-artifacts:/393362287489782283/b4a2a50100514968979d1678845cc1dd/artifacts/lstm_model
+user_id: null
+version: 5

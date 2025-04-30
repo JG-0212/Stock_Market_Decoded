@@ -12,22 +12,22 @@ stages:
     outs:
     - path: ../data/GOOG/GOOG_data.csv
       hash: md5
-      md5: bf683c9ca33f2fa8c9bc5c2882b059b5
-      size: 61302
+      md5: f312c3ca9f674c3c30573af1e9b942cb
+      size: 61299
     - path: ../data/GOOG/GOOG_run_id.txt
       hash: md5
-      md5: 0ce17d1b44c441f5005812a3e6ce8ee1
+      md5: 99349907e783a78cd243d40518a6fca8
       size: 32
   preprocess:
     cmd: python3 ../scripts/preprocess.py
     deps:
     - path: ../data/GOOG/GOOG_data.csv
       hash: md5
-      md5: bf683c9ca33f2fa8c9bc5c2882b059b5
-      size: 61302
+      md5: f312c3ca9f674c3c30573af1e9b942cb
+      size: 61299
     - path: ../data/GOOG/GOOG_run_id.txt
       hash: md5
-      md5: 0ce17d1b44c441f5005812a3e6ce8ee1
+      md5: 99349907e783a78cd243d40518a6fca8
       size: 32
     outs:
     - path: ../data/GOOG/GOOG_scaler.pkl
@@ -36,81 +36,81 @@ stages:
       size: 522
     - path: ../data/GOOG/GOOG_training_data.csv
       hash: md5
-      md5: 1600c72ab26c085f4a922372d42759d0
-      size: 44169
+      md5: ff0eb3503e8ef43cade1f283fb28e42b
+      size: 44171
     - path: ../data/GOOG/GOOG_val_data.csv
       hash: md5
-      md5: dc64ba6036375e8f5c78c1b1f80e61d1
-      size: 17138
+      md5: b8ddf82f129ce5e72ce53b9e9199dc24
+      size: 17133
     - path: ../data/GOOG/GOOG_x_train.npy
       hash: md5
-      md5: 7b1299971c49e364a4317a9e8f6890b1
+      md5: b49c7dc506fe606b99e6397aa82b733f
       size: 36296
     - path: ../data/GOOG/GOOG_x_val.npy
       hash: md5
-      md5: 9dbbf1950a91c6685f45d431d7a92583
+      md5: eee432cacdd08c3cae4420c4f8524180
       size: 14096
     - path: ../data/GOOG/GOOG_y_train.npy
       hash: md5
-      md5: 4c704241d3fc914ad7de6aee8915c801
+      md5: 8c787f26c1ac43fea0c70c0a6e26bda8
       size: 12184
     - path: ../data/GOOG/GOOG_y_val.npy
       hash: md5
-      md5: 8e75423e3a5a2b335581991867255896
+      md5: cc6dbd430c50d264eb5ec933171351fd
       size: 4784
   train:
     cmd: python3 ../scripts/train.py
     deps:
     - path: ../data/GOOG/GOOG_scaler.pkl
       hash: md5
-      md5: 6d1c5feb3bf9fd26c09421898d51b18d
+      md5: 205f9a2313841861fbc58d1317e6e91e
       size: 522
     - path: ../data/GOOG/GOOG_training_data.csv
       hash: md5
-      md5: 1600c72ab26c085f4a922372d42759d0
-      size: 44169
+      md5: f819e2c26600057708314f1e7f9f4394
+      size: 44179
     - path: ../data/GOOG/GOOG_val_data.csv
       hash: md5
-      md5: dc64ba6036375e8f5c78c1b1f80e61d1
-      size: 17138
+      md5: 7f9882caa08041e0e0491fb6f65b177c
+      size: 17135
     - path: ../data/GOOG/GOOG_x_train.npy
       hash: md5
-      md5: 7b1299971c49e364a4317a9e8f6890b1
+      md5: 9ba517a14e0c888e27cf814bc585250e
       size: 36296
     - path: ../data/GOOG/GOOG_x_val.npy
       hash: md5
-      md5: 9dbbf1950a91c6685f45d431d7a92583
+      md5: d9f819a18fe040848202f7a4a7118ae0
       size: 14096
     - path: ../data/GOOG/GOOG_y_train.npy
       hash: md5
-      md5: 4c704241d3fc914ad7de6aee8915c801
+      md5: f16bdf1a5e306881d97d15e4452d62b1
       size: 12184
     - path: ../data/GOOG/GOOG_y_val.npy
       hash: md5
-      md5: 8e75423e3a5a2b335581991867255896
+      md5: 6a7c571fd602d03d54c9a00dccc34183
       size: 4784
     outs:
     - path: ../data/GOOG/GOOG_actual.csv
       hash: md5
-      md5: fb218b2e2bcc03e03e4bb7df7ec5cde8
-      size: 17122
+      md5: ff197acb59a45e7746481170537c8c6b
+      size: 17116
     - path: ../data/GOOG/GOOG_feature_histograms.png
       hash: md5
       md5: 77013760212734bd45057bb51b313964
       size: 26358
     - path: ../data/GOOG/GOOG_latest.txt
       hash: md5
-      md5: a87ff679a2f3e71d9181a67b7542122c
+      md5: e4da3b7fbbce2345d7772b0674a318d5
       size: 1
     - path: ../data/GOOG/GOOG_loss.png
       hash: md5
-      md5: 8d90f2dd3a3f4f8b462604e38937e875
-      size: 36728
+      md5: f74111a74ae0579bc3fb800e09c1c29f
+      size: 39541
     - path: ../data/GOOG/GOOG_predictions.csv
       hash: md5
-      md5: 6646a3b24bb6b73ee08fa8c1abd5c20b
-      size: 9860
+      md5: 3a1dd1bb4910c7160242311e81e4ff0e
+      size: 9862
     - path: ../data/GOOG/GOOG_predictions.png
       hash: md5
-      md5: d8938fee9f1f41bd3c98221e46f13612
-      size: 98086
+      md5: 02bdb6de215a8600953e7e401792d743
+      size: 97508

@@ -12,51 +12,51 @@ stages:
     outs:
     - path: ../data/AAPL/AAPL_data.csv
       hash: md5
-      md5: 579071bb2b12da1e2156b902826014a8
-      size: 61427
+      md5: 58d3268af9a5c27e965bc1b3df9ac8b6
+      size: 61447
     - path: ../data/AAPL/AAPL_run_id.txt
       hash: md5
-      md5: 791af9efaf0b600a205a028dc63a3377
+      md5: f7b78c406638eb39e6902c0f688686b4
       size: 32
   preprocess:
     cmd: python3 ../scripts/preprocess.py
     deps:
     - path: ../data/AAPL/AAPL_data.csv
       hash: md5
-      md5: 579071bb2b12da1e2156b902826014a8
-      size: 61427
+      md5: 58d3268af9a5c27e965bc1b3df9ac8b6
+      size: 61447
     - path: ../data/AAPL/AAPL_run_id.txt
       hash: md5
-      md5: 791af9efaf0b600a205a028dc63a3377
+      md5: f7b78c406638eb39e6902c0f688686b4
       size: 32
     outs:
     - path: ../data/AAPL/AAPL_scaler.pkl
       hash: md5
-      md5: a8df5403141feee9692451f6301d4e8b
+      md5: fb8690ed2d2b1aecd87ad572f6a1dbff
       size: 522
     - path: ../data/AAPL/AAPL_training_data.csv
       hash: md5
-      md5: 28483dd15ae03c5cdce0ed963f14916f
-      size: 44256
+      md5: b6216f645aa8677ddfb7e188c411564d
+      size: 44273
     - path: ../data/AAPL/AAPL_val_data.csv
       hash: md5
-      md5: 3366ec286cd023010de4358f51d2d74b
-      size: 17176
+      md5: c4f7f39b2958f0153ea70dad3b00c81a
+      size: 17179
     - path: ../data/AAPL/AAPL_x_train.npy
       hash: md5
-      md5: 96963a19f5685b6f42db0eeee12f3da4
+      md5: 0be46b8925f268e9088b66c1bef8785d
       size: 36296
     - path: ../data/AAPL/AAPL_x_val.npy
       hash: md5
-      md5: 60983b5894e2e52cd491563cbe7bc9ef
+      md5: da65a1aaa17d9bdd174a2e80a4081cca
       size: 14096
     - path: ../data/AAPL/AAPL_y_train.npy
       hash: md5
-      md5: d4ff8835f902355cc0c996558704200f
+      md5: 5d4604cedb1da681b882d0f6c89363b9
       size: 12184
     - path: ../data/AAPL/AAPL_y_val.npy
       hash: md5
-      md5: 42ca6f19624950bd8cc798e90a748c2e
+      md5: 38a923a2e5a0f23250bb732cd58f78f4
       size: 4784
   train:
     cmd: python3 ../scripts/train.py

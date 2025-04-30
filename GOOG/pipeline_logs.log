@@ -1,0 +1,33 @@
+2025-04-30 12:05:53,993 - fetch - INFO - Starting fetch.py
+2025-04-30 12:05:54,398 - fetch - INFO - MLflow tracking URI and experiment set.
+2025-04-30 12:05:54,400 - fetch - INFO - Configuration loaded.
+2025-04-30 12:05:54,503 - fetch - INFO - MLflow run started and parameters logged.
+2025-04-30 12:05:54,503 - fetch - INFO - Run ID saved for ticker: GOOG
+2025-04-30 12:05:55,397 - fetch - INFO - Data fetched and saved for ticker: GOOG
+2025-04-30 12:06:00,686 - preprocess - INFO - Starting preprocess.py
+2025-04-30 12:06:00,686 - preprocess - INFO - MLflow tracking URI set.
+2025-04-30 12:06:00,687 - preprocess - INFO - Config and default dates loaded.
+2025-04-30 12:06:00,696 - preprocess - INFO - Data loaded and parsed.
+2025-04-30 12:06:01,216 - preprocess - INFO - MLflow run started and parameters logged.
+2025-04-30 12:06:01,218 - preprocess - INFO - Training and validation data split.
+2025-04-30 12:06:01,254 - preprocess - INFO - Scaler saved and data statistics logged.
+2025-04-30 12:06:01,257 - preprocess - INFO - Training data transformed.
+2025-04-30 12:06:01,259 - preprocess - INFO - Validation data transformed.
+2025-04-30 12:06:01,260 - preprocess - INFO - Training and validation numpy arrays saved.
+2025-04-30 12:06:01,266 - preprocess - INFO - Raw training and validation DataFrames saved.
+2025-04-30 12:06:11,165 - train - INFO - Starting train.py
+2025-04-30 12:06:11,167 - train - INFO - MLflow and config loaded.
+2025-04-30 12:06:11,167 - train - INFO - Ticker parameters loaded: GOOG
+2025-04-30 12:06:11,213 - train - INFO - MLflow run started and parameters logged.
+2025-04-30 12:06:11,214 - train - INFO - Training and validation data loaded.
+2025-04-30 12:06:11,225 - train - INFO - Training and validation CSVs loaded and indexed.
+2025-04-30 12:06:12,340 - train - INFO - Data histogram plotted.
+2025-04-30 12:06:26,002 - train - INFO - Model trained successfully.
+2025-04-30 12:06:33,890 - train - INFO - Model logged to MLflow.
+2025-04-30 12:06:34,050 - train - INFO - Validation loss: 0.01647655852138996
+2025-04-30 12:06:34,293 - train - INFO - Loss plot saved.
+2025-04-30 12:06:35,676 - train - INFO - Predictions and actuals saved and logged.
+2025-04-30 12:06:36,166 - train - INFO - Prediction plot saved.
+2025-04-30 12:06:36,187 - train - INFO - Optional plots logged to MLflow.
+2025-04-30 12:06:36,215 - train - INFO - Latest model version written: 8
+2025-04-30 12:06:36,238 - train - INFO - train.py completed successfully.

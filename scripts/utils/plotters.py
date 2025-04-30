@@ -7,11 +7,10 @@ import yfinance as yf
 
 def plot_histogram_data_split(ticker, training_data, val_data, directory_path):
     print("Plotting train data plots")
-    currency = yf.Ticker(ticker).info['currency']
     plt.figure(figsize=(12, 5))
     plt.plot(training_data['Close'], label="Training Data", color='green')
     plt.plot(val_data['Close'], label="Validation Data", color='red')
-    plt.ylabel(f'Price ({currency})')
+    plt.ylabel(f'Price)')
     plt.xlabel("Date")
     plt.title(f"{ticker} Price Split")
     plt.legend()
@@ -49,7 +48,6 @@ def plot_loss(ticker, history, directory_path):
 
 def plot_predictions(ticker, val_preds, val_data, directory_path, future_preds=None):
     print("Plotting predictions...")
-    currency = yf.Ticker(ticker).info['currency']
     plt.figure(figsize=(14, 6))
     plt.plot(val_data['Close'].values, color='green', label='Actual Price')
     plt.plot(val_preds[f"{ticker}_predicted"].values, color='red', label='Validation Prediction')
@@ -58,7 +56,7 @@ def plot_predictions(ticker, val_preds, val_data, directory_path, future_preds=N
         future_ticks = range(start, start + len(future_preds))
         plt.plot(future_ticks, future_preds, color='blue', linestyle='--', label='Future Prediction')
     plt.xlabel('Days')
-    plt.ylabel(f'Price ({currency})')
+    plt.ylabel(f'Price')
     plt.title(f'{ticker} - Price Predictions')
     plt.legend()
     plt.grid(True)

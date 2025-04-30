@@ -36,6 +36,7 @@ stages:
     - ../data/AAPL/AAPL_training_data.csv
     - ../data/AAPL/AAPL_val_data.csv
     outs:
+    - ../data/AAPL/AAPL_price_split.png
     - ../data/AAPL/AAPL_feature_histograms.png
     - ../data/AAPL/AAPL_loss.png
     - ../data/AAPL/AAPL_predictions.png

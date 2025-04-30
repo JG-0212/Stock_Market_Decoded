@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/393362287489782283/aefed1f70b184715b5788980b20f8e3e/artifacts
+end_time: 1745994724968
+entry_point_name: ''
+experiment_id: '393362287489782283'
+lifecycle_stage: active
+run_id: aefed1f70b184715b5788980b20f8e3e
+run_name: AAPL_2025-04-30
+run_uuid: aefed1f70b184715b5788980b20f8e3e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745994680333
+status: 3
+tags: []
+user_id: jayagowtham

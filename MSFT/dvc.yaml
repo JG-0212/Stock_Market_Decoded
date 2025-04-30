@@ -36,6 +36,7 @@ stages:
     - ../data/MSFT/MSFT_training_data.csv
     - ../data/MSFT/MSFT_val_data.csv
     outs:
+    - ../data/MSFT/MSFT_price_split.png
     - ../data/MSFT/MSFT_feature_histograms.png
     - ../data/MSFT/MSFT_loss.png
     - ../data/MSFT/MSFT_predictions.png

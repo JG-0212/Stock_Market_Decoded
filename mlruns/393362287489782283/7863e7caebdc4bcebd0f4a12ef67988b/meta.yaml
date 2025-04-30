@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/393362287489782283/7863e7caebdc4bcebd0f4a12ef67988b/artifacts
+end_time: 1745994214081
+entry_point_name: ''
+experiment_id: '393362287489782283'
+lifecycle_stage: active
+run_id: 7863e7caebdc4bcebd0f4a12ef67988b
+run_name: GOOG_2025-04-30
+run_uuid: 7863e7caebdc4bcebd0f4a12ef67988b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745994166944
+status: 3
+tags: []
+user_id: jayagowtham

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+LOG_FILE="/home/jayagowtham/Documents/mlapp/evaluator_logs.log"
+
+exec > "$LOG_FILE" 2>&1
+
 cd /home/jayagowtham/Documents/mlapp
 
 source /home/jayagowtham/myenvs/.mlops/bin/activate
@@ -15,7 +19,7 @@ for ticker in $(ls evaluation); do
         
         threshold=500
         
-        if (( $(echo "$score < $threshold" | bc -l) )); then
+        if (( $(echo "$score >= $threshold" | bc -l) )); then
             echo "Triggering DVC for $ticker (score=$score)"
             cd "${ticker}/"
             dvc repro --force

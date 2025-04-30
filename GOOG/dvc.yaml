@@ -36,6 +36,7 @@ stages:
     - ../data/GOOG/GOOG_training_data.csv
     - ../data/GOOG/GOOG_val_data.csv
     outs:
+    - ../data/GOOG/GOOG_price_split.png
     - ../data/GOOG/GOOG_feature_histograms.png
     - ../data/GOOG/GOOG_loss.png
     - ../data/GOOG/GOOG_predictions.png
