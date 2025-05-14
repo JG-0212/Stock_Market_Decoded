@@ -1,17 +1,33 @@
-2025-05-14 16:29:44,134 - fetch - INFO - Starting fetch.py
-2025-05-14 16:29:44,936 - fetch - INFO - MLflow tracking URI and experiment set.
-2025-05-14 16:29:44,940 - fetch - INFO - Configuration loaded.
-2025-05-14 16:29:45,259 - fetch - INFO - MLflow run started and parameters logged.
-2025-05-14 16:29:45,260 - fetch - INFO - Run ID saved for ticker: AAPL
-2025-05-14 16:29:46,135 - fetch - INFO - Data fetched and saved for ticker: AAPL
-2025-05-14 16:29:55,922 - preprocess - INFO - Starting preprocess.py
-2025-05-14 16:29:55,922 - preprocess - INFO - MLflow tracking URI set.
-2025-05-14 16:29:55,926 - preprocess - INFO - Config and default dates loaded.
-2025-05-14 16:29:55,944 - preprocess - INFO - Data loaded and parsed.
-2025-05-14 16:29:56,771 - preprocess - INFO - MLflow run started and parameters logged.
-2025-05-14 16:29:56,778 - preprocess - INFO - Training and validation data split.
-2025-05-14 16:29:56,829 - preprocess - INFO - Scaler saved and data statistics logged.
-2025-05-14 16:29:56,834 - preprocess - INFO - Training data transformed.
-2025-05-14 16:29:56,839 - preprocess - INFO - Validation data transformed.
-2025-05-14 16:29:56,842 - preprocess - INFO - Training and validation numpy arrays saved.
-2025-05-14 16:29:56,859 - preprocess - INFO - Raw training and validation DataFrames saved.
+2025-05-14 23:26:37,460 - fetch - INFO - Starting fetch.py
+2025-05-14 23:26:38,209 - fetch - INFO - MLflow tracking URI and experiment set.
+2025-05-14 23:26:38,213 - fetch - INFO - Configuration loaded.
+2025-05-14 23:26:38,414 - fetch - INFO - MLflow run started and parameters logged.
+2025-05-14 23:26:38,414 - fetch - INFO - Run ID saved for ticker: AAPL
+2025-05-14 23:26:40,325 - fetch - INFO - Data fetched and saved for ticker: AAPL
+2025-05-14 23:26:48,588 - preprocess - INFO - Starting preprocess.py
+2025-05-14 23:26:48,588 - preprocess - INFO - MLflow tracking URI set.
+2025-05-14 23:26:48,591 - preprocess - INFO - Config and default dates loaded.
+2025-05-14 23:26:48,606 - preprocess - INFO - Data loaded and parsed.
+2025-05-14 23:26:49,275 - preprocess - INFO - MLflow run started and parameters logged.
+2025-05-14 23:26:49,281 - preprocess - INFO - Training and validation data split.
+2025-05-14 23:26:49,327 - preprocess - INFO - Scaler saved and data statistics logged.
+2025-05-14 23:26:49,331 - preprocess - INFO - Training data transformed.
+2025-05-14 23:26:49,336 - preprocess - INFO - Validation data transformed.
+2025-05-14 23:26:49,339 - preprocess - INFO - Training and validation numpy arrays saved.
+2025-05-14 23:26:49,355 - preprocess - INFO - Raw training and validation DataFrames saved.
+2025-05-14 23:27:07,376 - train - INFO - Starting train.py
+2025-05-14 23:27:07,379 - train - INFO - MLflow and config loaded.
+2025-05-14 23:27:07,379 - train - INFO - Ticker parameters loaded: AAPL
+2025-05-14 23:27:07,453 - train - INFO - MLflow run started and parameters logged.
+2025-05-14 23:27:07,455 - train - INFO - Training and validation data loaded.
+2025-05-14 23:27:07,477 - train - INFO - Training and validation CSVs loaded and indexed.
+2025-05-14 23:27:11,543 - train - INFO - Data histogram plotted.
+2025-05-14 23:27:37,983 - train - INFO - Model trained successfully.
+2025-05-14 23:27:59,487 - train - INFO - Model logged to MLflow.
+2025-05-14 23:27:59,867 - train - INFO - Validation loss: 0.024787437170743942
+2025-05-14 23:28:00,498 - train - INFO - Loss plot saved.
+2025-05-14 23:28:02,747 - train - INFO - Predictions and actuals saved and logged.
+2025-05-14 23:28:03,628 - train - INFO - Prediction plot saved.
+2025-05-14 23:28:03,645 - train - INFO - Optional plots logged to MLflow.
+2025-05-14 23:28:03,696 - train - INFO - Latest model version written: 9
+2025-05-14 23:28:03,733 - train - INFO - train.py completed successfully.

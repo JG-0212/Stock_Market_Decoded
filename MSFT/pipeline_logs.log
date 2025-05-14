@@ -1,56 +1,33 @@
-2025-05-14 15:13:17,442 - fetch - INFO - Starting fetch.py
-2025-05-14 15:13:18,286 - fetch - INFO - MLflow tracking URI and experiment set.
-2025-05-14 15:13:18,289 - fetch - INFO - Configuration loaded.
-2025-05-14 15:13:18,474 - fetch - INFO - MLflow run started and parameters logged.
-2025-05-14 15:13:18,475 - fetch - INFO - Run ID saved for ticker: MSFT
-2025-05-14 15:13:24,142 - yfinance - ERROR - 
-1 Failed download:
-2025-05-14 15:13:24,142 - yfinance - ERROR - ['MSFT']: YFRateLimitError('Too Many Requests. Rate limited. Try after a while.')
-2025-05-14 15:13:24,162 - fetch - INFO - Data fetched and saved for ticker: MSFT
-2025-05-14 15:13:34,824 - preprocess - INFO - Starting preprocess.py
-2025-05-14 15:13:34,824 - preprocess - INFO - MLflow tracking URI set.
-2025-05-14 15:13:34,827 - preprocess - INFO - Config and default dates loaded.
-2025-05-14 15:13:34,841 - preprocess - INFO - Data loaded and parsed.
-2025-05-14 15:13:35,556 - preprocess - INFO - MLflow run started and parameters logged.
-2025-05-14 15:13:35,561 - preprocess - INFO - Training and validation data split.
-2025-05-14 15:13:35,562 - preprocess - ERROR - Failed during scaling or statistics step.
-Traceback (most recent call last):
-  File "/home/jayagowtham/Documents/mlapp/MSFT/../scripts/preprocess.py", line 80, in <module>
-    train_scaled = scaler.fit_transform(training_data.values)
-  File "/home/jayagowtham/myenvs/.mlops/lib/python3.10/site-packages/sklearn/utils/_set_output.py", line 319, in wrapped
-    data_to_wrap = f(self, X, *args, **kwargs)
-  File "/home/jayagowtham/myenvs/.mlops/lib/python3.10/site-packages/sklearn/base.py", line 918, in fit_transform
-    return self.fit(X, **fit_params).transform(X)
-  File "/home/jayagowtham/myenvs/.mlops/lib/python3.10/site-packages/sklearn/preprocessing/_data.py", line 447, in fit
-    return self.partial_fit(X, y)
-  File "/home/jayagowtham/myenvs/.mlops/lib/python3.10/site-packages/sklearn/base.py", line 1389, in wrapper
-    return fit_method(estimator, *args, **kwargs)
-  File "/home/jayagowtham/myenvs/.mlops/lib/python3.10/site-packages/sklearn/preprocessing/_data.py", line 487, in partial_fit
-    X = validate_data(
-  File "/home/jayagowtham/myenvs/.mlops/lib/python3.10/site-packages/sklearn/utils/validation.py", line 2944, in validate_data
-    out = check_array(X, input_name="X", **check_params)
-  File "/home/jayagowtham/myenvs/.mlops/lib/python3.10/site-packages/sklearn/utils/validation.py", line 1130, in check_array
-    raise ValueError(
-ValueError: Found array with 0 sample(s) (shape=(0, 1)) while a minimum of 1 is required by MinMaxScaler.
-2025-05-14 15:13:35,568 - preprocess - ERROR - Failed to transform training data.
-Traceback (most recent call last):
-  File "/home/jayagowtham/Documents/mlapp/MSFT/../scripts/preprocess.py", line 91, in <module>
-    for i in range(time_steps, train_scaled.shape[0]):
-NameError: name 'train_scaled' is not defined
-2025-05-14 15:13:35,587 - preprocess - ERROR - Failed to transform validation data.
-Traceback (most recent call last):
-  File "/home/jayagowtham/Documents/mlapp/MSFT/../scripts/preprocess.py", line 104, in <module>
-    val_scaled = scaler.transform(inputs.values)
-  File "/home/jayagowtham/myenvs/.mlops/lib/python3.10/site-packages/sklearn/utils/_set_output.py", line 319, in wrapped
-    data_to_wrap = f(self, X, *args, **kwargs)
-  File "/home/jayagowtham/myenvs/.mlops/lib/python3.10/site-packages/sklearn/preprocessing/_data.py", line 528, in transform
-    check_is_fitted(self)
-  File "/home/jayagowtham/myenvs/.mlops/lib/python3.10/site-packages/sklearn/utils/validation.py", line 1757, in check_is_fitted
-    raise NotFittedError(msg % {"name": type(estimator).__name__})
-sklearn.exceptions.NotFittedError: This MinMaxScaler instance is not fitted yet. Call 'fit' with appropriate arguments before using this estimator.
-2025-05-14 15:13:35,589 - preprocess - ERROR - Failed to save numpy arrays.
-Traceback (most recent call last):
-  File "/home/jayagowtham/Documents/mlapp/MSFT/../scripts/preprocess.py", line 119, in <module>
-    np.save(os.path.join(directory_path, f"{ticker}_x_val.npy"), x_val)
-NameError: name 'x_val' is not defined. Did you mean: 'eval'?
-2025-05-14 15:13:35,596 - preprocess - INFO - Raw training and validation DataFrames saved.
+2025-05-14 22:59:05,954 - fetch - INFO - Starting fetch.py
+2025-05-14 22:59:06,777 - fetch - INFO - MLflow tracking URI and experiment set.
+2025-05-14 22:59:06,781 - fetch - INFO - Configuration loaded.
+2025-05-14 22:59:07,167 - fetch - INFO - MLflow run started and parameters logged.
+2025-05-14 22:59:07,168 - fetch - INFO - Run ID saved for ticker: MSFT
+2025-05-14 22:59:07,886 - fetch - INFO - Data fetched and saved for ticker: MSFT
+2025-05-14 22:59:17,176 - preprocess - INFO - Starting preprocess.py
+2025-05-14 22:59:17,177 - preprocess - INFO - MLflow tracking URI set.
+2025-05-14 22:59:17,179 - preprocess - INFO - Config and default dates loaded.
+2025-05-14 22:59:17,194 - preprocess - INFO - Data loaded and parsed.
+2025-05-14 22:59:17,937 - preprocess - INFO - MLflow run started and parameters logged.
+2025-05-14 22:59:17,944 - preprocess - INFO - Training and validation data split.
+2025-05-14 22:59:18,075 - preprocess - INFO - Scaler saved and data statistics logged.
+2025-05-14 22:59:18,080 - preprocess - INFO - Training data transformed.
+2025-05-14 22:59:18,087 - preprocess - INFO - Validation data transformed.
+2025-05-14 22:59:18,089 - preprocess - INFO - Training and validation numpy arrays saved.
+2025-05-14 22:59:18,112 - preprocess - INFO - Raw training and validation DataFrames saved.
+2025-05-14 22:59:36,894 - train - INFO - Starting train.py
+2025-05-14 22:59:36,897 - train - INFO - MLflow and config loaded.
+2025-05-14 22:59:36,897 - train - INFO - Ticker parameters loaded: MSFT
+2025-05-14 22:59:37,010 - train - INFO - MLflow run started and parameters logged.
+2025-05-14 22:59:37,013 - train - INFO - Training and validation data loaded.
+2025-05-14 22:59:37,054 - train - INFO - Training and validation CSVs loaded and indexed.
+2025-05-14 22:59:41,325 - train - INFO - Data histogram plotted.
+2025-05-14 23:00:09,163 - train - INFO - Model trained successfully.
+2025-05-14 23:01:09,960 - train - INFO - Model logged to MLflow.
+2025-05-14 23:01:15,533 - train - INFO - Validation loss: 0.026029983535408974
+2025-05-14 23:01:16,923 - train - INFO - Loss plot saved.
+2025-05-14 23:01:22,439 - train - INFO - Predictions and actuals saved and logged.
+2025-05-14 23:01:23,369 - train - INFO - Prediction plot saved.
+2025-05-14 23:01:24,935 - train - INFO - Optional plots logged to MLflow.
+2025-05-14 23:01:25,454 - train - INFO - Latest model version written: 6
+2025-05-14 23:01:25,776 - train - INFO - train.py completed successfully.

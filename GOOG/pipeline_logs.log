@@ -1,33 +1,33 @@
-2025-05-14 15:11:23,004 - fetch - INFO - Starting fetch.py
-2025-05-14 15:11:25,379 - fetch - INFO - MLflow tracking URI and experiment set.
-2025-05-14 15:11:25,382 - fetch - INFO - Configuration loaded.
-2025-05-14 15:11:25,639 - fetch - INFO - MLflow run started and parameters logged.
-2025-05-14 15:11:25,640 - fetch - INFO - Run ID saved for ticker: GOOG
-2025-05-14 15:11:27,558 - fetch - INFO - Data fetched and saved for ticker: GOOG
-2025-05-14 15:11:36,982 - preprocess - INFO - Starting preprocess.py
-2025-05-14 15:11:36,982 - preprocess - INFO - MLflow tracking URI set.
-2025-05-14 15:11:36,985 - preprocess - INFO - Config and default dates loaded.
-2025-05-14 15:11:37,005 - preprocess - INFO - Data loaded and parsed.
-2025-05-14 15:11:37,756 - preprocess - INFO - MLflow run started and parameters logged.
-2025-05-14 15:11:37,764 - preprocess - INFO - Training and validation data split.
-2025-05-14 15:11:37,813 - preprocess - INFO - Scaler saved and data statistics logged.
-2025-05-14 15:11:37,818 - preprocess - INFO - Training data transformed.
-2025-05-14 15:11:37,824 - preprocess - INFO - Validation data transformed.
-2025-05-14 15:11:37,826 - preprocess - INFO - Training and validation numpy arrays saved.
-2025-05-14 15:11:37,841 - preprocess - INFO - Raw training and validation DataFrames saved.
-2025-05-14 15:11:56,118 - train - INFO - Starting train.py
-2025-05-14 15:11:56,121 - train - INFO - MLflow and config loaded.
-2025-05-14 15:11:56,122 - train - INFO - Ticker parameters loaded: GOOG
-2025-05-14 15:11:56,229 - train - INFO - MLflow run started and parameters logged.
-2025-05-14 15:11:56,231 - train - INFO - Training and validation data loaded.
-2025-05-14 15:11:56,259 - train - INFO - Training and validation CSVs loaded and indexed.
-2025-05-14 15:11:59,393 - train - INFO - Data histogram plotted.
-2025-05-14 15:12:34,696 - train - INFO - Model trained successfully.
-2025-05-14 15:12:56,860 - train - INFO - Model logged to MLflow.
-2025-05-14 15:12:57,447 - train - INFO - Validation loss: 0.003870636923238635
-2025-05-14 15:12:58,089 - train - INFO - Loss plot saved.
-2025-05-14 15:13:00,261 - train - INFO - Predictions and actuals saved and logged.
-2025-05-14 15:13:01,173 - train - INFO - Prediction plot saved.
-2025-05-14 15:13:01,186 - train - INFO - Optional plots logged to MLflow.
-2025-05-14 15:13:01,689 - train - INFO - Latest model version written: 9
-2025-05-14 15:13:01,886 - train - INFO - train.py completed successfully.
+2025-05-14 22:31:30,076 - fetch - INFO - Starting fetch.py
+2025-05-14 22:31:30,819 - fetch - INFO - MLflow tracking URI and experiment set.
+2025-05-14 22:31:30,822 - fetch - INFO - Configuration loaded.
+2025-05-14 22:31:31,012 - fetch - INFO - MLflow run started and parameters logged.
+2025-05-14 22:31:31,013 - fetch - INFO - Run ID saved for ticker: GOOG
+2025-05-14 22:31:31,996 - fetch - INFO - Data fetched and saved for ticker: GOOG
+2025-05-14 22:31:40,790 - preprocess - INFO - Starting preprocess.py
+2025-05-14 22:31:40,790 - preprocess - INFO - MLflow tracking URI set.
+2025-05-14 22:31:40,793 - preprocess - INFO - Config and default dates loaded.
+2025-05-14 22:31:40,808 - preprocess - INFO - Data loaded and parsed.
+2025-05-14 22:31:41,485 - preprocess - INFO - MLflow run started and parameters logged.
+2025-05-14 22:31:41,495 - preprocess - INFO - Training and validation data split.
+2025-05-14 22:31:41,766 - preprocess - INFO - Scaler saved and data statistics logged.
+2025-05-14 22:31:41,771 - preprocess - INFO - Training data transformed.
+2025-05-14 22:31:41,777 - preprocess - INFO - Validation data transformed.
+2025-05-14 22:31:41,779 - preprocess - INFO - Training and validation numpy arrays saved.
+2025-05-14 22:31:41,795 - preprocess - INFO - Raw training and validation DataFrames saved.
+2025-05-14 22:32:37,898 - train - INFO - Starting train.py
+2025-05-14 22:32:37,902 - train - INFO - MLflow and config loaded.
+2025-05-14 22:32:37,902 - train - INFO - Ticker parameters loaded: GOOG
+2025-05-14 22:32:40,474 - train - INFO - MLflow run started and parameters logged.
+2025-05-14 22:32:40,476 - train - INFO - Training and validation data loaded.
+2025-05-14 22:32:40,512 - train - INFO - Training and validation CSVs loaded and indexed.
+2025-05-14 22:32:53,715 - train - INFO - Data histogram plotted.
+2025-05-14 22:33:47,712 - train - INFO - Model trained successfully.
+2025-05-14 22:34:54,945 - train - INFO - Model logged to MLflow.
+2025-05-14 22:34:55,465 - train - INFO - Validation loss: 0.009759056381881237
+2025-05-14 22:34:58,232 - train - INFO - Loss plot saved.
+2025-05-14 22:35:02,549 - train - INFO - Predictions and actuals saved and logged.
+2025-05-14 22:35:03,664 - train - INFO - Prediction plot saved.
+2025-05-14 22:35:04,519 - train - INFO - Optional plots logged to MLflow.
+2025-05-14 22:35:04,922 - train - INFO - Latest model version written: 11
+2025-05-14 22:35:05,083 - train - INFO - train.py completed successfully.

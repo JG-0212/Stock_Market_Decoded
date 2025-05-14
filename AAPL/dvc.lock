@@ -12,22 +12,22 @@ stages:
     outs:
     - path: ../data/AAPL/AAPL_data.csv
       hash: md5
-      md5: 8ea4790f5b033b4c230b0ddd1b4e7e82
-      size: 61715
+      md5: 8c372c85cac29b5267d5e0d897baede7
+      size: 61733
     - path: ../data/AAPL/AAPL_run_id.txt
       hash: md5
-      md5: 81d2c8ad4b508ebc5c05e8210f7d09f8
+      md5: fe68d1f7f2c01839b6753687bb88a62a
       size: 32
   preprocess:
     cmd: python3 ../scripts/preprocess.py
     deps:
     - path: ../data/AAPL/AAPL_data.csv
       hash: md5
-      md5: 8ea4790f5b033b4c230b0ddd1b4e7e82
-      size: 61715
+      md5: 8c372c85cac29b5267d5e0d897baede7
+      size: 61733
     - path: ../data/AAPL/AAPL_run_id.txt
       hash: md5
-      md5: 81d2c8ad4b508ebc5c05e8210f7d09f8
+      md5: fe68d1f7f2c01839b6753687bb88a62a
       size: 32
     outs:
     - path: ../data/AAPL/AAPL_scaler.pkl
@@ -36,85 +36,85 @@ stages:
       size: 522
     - path: ../data/AAPL/AAPL_training_data.csv
       hash: md5
-      md5: fe6f9492ada9bafbab9e0861e868e15e
-      size: 44259
+      md5: e16c3c7ac31f8c78453c3dcc579abcb5
+      size: 44229
     - path: ../data/AAPL/AAPL_val_data.csv
       hash: md5
-      md5: 8fe91f950f3f0a6d81e8631ad1580b49
-      size: 17461
+      md5: a02ee63f98cca3dfb2a739e6dbd8475b
+      size: 17509
     - path: ../data/AAPL/AAPL_x_train.npy
       hash: md5
-      md5: 7b4a407170a7ad3caf32c10feb554ee4
+      md5: 45483a71daeaad41c192f3ffc0e1371e
       size: 36296
     - path: ../data/AAPL/AAPL_x_val.npy
       hash: md5
-      md5: f97547b1fe0005ee838ed38bf71fd117
-      size: 14336
+      md5: 7efd92647df86edae292423954747ef3
+      size: 14360
     - path: ../data/AAPL/AAPL_y_train.npy
       hash: md5
-      md5: 66ec68666b705a0994d294ba60b7e336
+      md5: 17f421a0b2eea773910249e2ac07b226
       size: 12184
     - path: ../data/AAPL/AAPL_y_val.npy
       hash: md5
-      md5: 19d65712daf04f1728ac18f228c0e005
-      size: 4864
+      md5: 17b432e7b1ffda06a2ae79a766c25028
+      size: 4872
   train:
     cmd: python3 ../scripts/train.py
     deps:
     - path: ../data/AAPL/AAPL_scaler.pkl
       hash: md5
-      md5: 34c35c731513c335a24fdd42c19a6328
+      md5: d81b867ffc7d38e45b87316d3f7c811a
       size: 522
     - path: ../data/AAPL/AAPL_training_data.csv
       hash: md5
-      md5: e5d3246e8d785a938db957af14e54862
-      size: 44254
+      md5: e16c3c7ac31f8c78453c3dcc579abcb5
+      size: 44229
     - path: ../data/AAPL/AAPL_val_data.csv
       hash: md5
-      md5: 691c8883c60438785d953fbe613198a1
-      size: 17454
+      md5: a02ee63f98cca3dfb2a739e6dbd8475b
+      size: 17509
     - path: ../data/AAPL/AAPL_x_train.npy
       hash: md5
-      md5: 9caca83a50c972af1f032c807327b8d9
+      md5: 45483a71daeaad41c192f3ffc0e1371e
       size: 36296
     - path: ../data/AAPL/AAPL_x_val.npy
       hash: md5
-      md5: 8c806e909f70abdac53ce2e608ee1996
-      size: 14336
+      md5: 7efd92647df86edae292423954747ef3
+      size: 14360
     - path: ../data/AAPL/AAPL_y_train.npy
       hash: md5
-      md5: 40db56e49d17cb4a8fcc2e89b630e092
+      md5: 17f421a0b2eea773910249e2ac07b226
       size: 12184
     - path: ../data/AAPL/AAPL_y_val.npy
       hash: md5
-      md5: fa278958a6470c0f6b594bfd72be2ceb
-      size: 4864
+      md5: 17b432e7b1ffda06a2ae79a766c25028
+      size: 4872
     outs:
     - path: ../data/AAPL/AAPL_actual.csv
       hash: md5
-      md5: 530dddaebe45e904d6205a9fae93a179
-      size: 17397
+      md5: 01fd7161b5dd5197b5293eca39d9b22e
+      size: 17450
     - path: ../data/AAPL/AAPL_feature_histograms.png
       hash: md5
       md5: 8e8d6b1f6c7cb721166a9579aa562a4d
       size: 25758
     - path: ../data/AAPL/AAPL_latest.txt
       hash: md5
-      md5: 8f14e45fceea167a5a36dedd4bea2543
+      md5: 45c48cce2e2d7fbdea1afc51c7c6ad26
       size: 1
     - path: ../data/AAPL/AAPL_loss.png
       hash: md5
-      md5: c0ad8fc874dba8cdd1d9ef59b52c7d5b
-      size: 32412
+      md5: ec730a3176de5dd461ffa36a0cbceada
+      size: 32893
     - path: ../data/AAPL/AAPL_predictions.csv
       hash: md5
-      md5: 94e047dd88e5592be46c64ec8d1533f7
-      size: 10084
+      md5: e8c1bdd3272bf84f4bc525b0b811897f
+      size: 10101
     - path: ../data/AAPL/AAPL_predictions.png
       hash: md5
-      md5: 68994a8566010bbccc8563fc07e2c022
-      size: 96875
+      md5: 932616e3150478f43501249ffdab0bc8
+      size: 95876
     - path: ../data/AAPL/AAPL_price_split.png
       hash: md5
-      md5: edd3b74b12cced07b1a353d975255e6e
-      size: 49079
+      md5: 213814a63e9a8fef14ff737e45165c90
+      size: 48995

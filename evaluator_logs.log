@@ -1,21 +1,21 @@
-2025-05-14 16:43:25,764 - yfinance - ERROR - 
+2025-05-14 17:00:13,119 - yfinance - ERROR - 
 3 Failed downloads:
-2025-05-14 16:43:25,764 - yfinance - ERROR - ['AAPL', 'GOOG', 'MSFT']: YFRateLimitError('Too Many Requests. Rate limited. Try after a while.')
-2025-05-14 16:43:25,781 - evaluator - ERROR - Failed to evaluate squared error for AAPL
+2025-05-14 17:00:13,119 - yfinance - ERROR - ['AAPL', 'MSFT', 'GOOG']: YFRateLimitError('Too Many Requests. Rate limited. Try after a while.')
+2025-05-14 17:00:13,131 - evaluator - ERROR - Failed to evaluate squared error for AAPL
 Traceback (most recent call last):
   File "/home/jayagowtham/Documents/mlapp/evaluator.py", line 23, in eval_today_se
     today_actual = data.values[-1][0]
 IndexError: index -1 is out of bounds for axis 0 with size 0
-2025-05-14 16:43:25,783 - evaluator - INFO - Updated score for AAPL: 2172.701717347684
-2025-05-14 16:43:25,787 - evaluator - ERROR - Failed to evaluate squared error for GOOG
+2025-05-14 17:00:13,132 - evaluator - INFO - Updated score for AAPL: 2129.464953172465
+2025-05-14 17:00:13,135 - evaluator - ERROR - Failed to evaluate squared error for GOOG
 Traceback (most recent call last):
   File "/home/jayagowtham/Documents/mlapp/evaluator.py", line 23, in eval_today_se
     today_actual = data.values[-1][0]
 IndexError: index -1 is out of bounds for axis 0 with size 0
-2025-05-14 16:43:25,788 - evaluator - INFO - Updated score for GOOG: 1023.80072318288
-2025-05-14 16:43:25,792 - evaluator - ERROR - Failed to evaluate squared error for MSFT
+2025-05-14 17:00:13,136 - evaluator - INFO - Updated score for GOOG: 1003.4270887915408
+2025-05-14 17:00:13,139 - evaluator - ERROR - Failed to evaluate squared error for MSFT
 Traceback (most recent call last):
   File "/home/jayagowtham/Documents/mlapp/evaluator.py", line 23, in eval_today_se
     today_actual = data.values[-1][0]
 IndexError: index -1 is out of bounds for axis 0 with size 0
-2025-05-14 16:43:25,793 - evaluator - INFO - Updated score for MSFT: 35792.5076337553
+2025-05-14 17:00:13,140 - evaluator - INFO - Updated score for MSFT: 35080.236731843564

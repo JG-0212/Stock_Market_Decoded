@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1747243868130
+current_stage: None
+description: ''
+last_updated_timestamp: 1747243868130
+name: MSFTPredModel
+run_id: e65dfb1a5a174a03b0220251f329dc66
+run_link: ''
+source: mlflow-artifacts:/393362287489782283/e65dfb1a5a174a03b0220251f329dc66/artifacts/lstm_model
+status: READY
+status_message: null
+storage_location: mlflow-artifacts:/393362287489782283/e65dfb1a5a174a03b0220251f329dc66/artifacts/lstm_model
+user_id: null
+version: 6

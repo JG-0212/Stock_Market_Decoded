@@ -1,0 +1,3 @@
+2025-05-14 18:00:55,009 - frontend - INFO - Prometheus metrics server started on http://localhost:18000
+2025-05-14 18:01:07,291 - frontend - INFO - Prediction requested by client for: ['AAPL', 'GOOG', 'MSFT'], days: 10
+2025-05-14 18:01:21,703 - frontend - INFO - Successfully compared predictions for ['AAPL', 'GOOG', 'MSFT']
