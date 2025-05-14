@@ -1,37 +1,50 @@
 services:
   frontend:
     image: python:3.10
-    working_dir: /app
     volumes:
-      - .:/app
+      - .:/app/
+    working_dir: /app
     ports:
       - "8501:8501"    
       - "18000:18000"    
     command: >
-      bash -c "
-        pip install -r frontend_requirements.txt &&
-        streamlit run frontend.py
-      "
+      bash -c "pip install -r frontend_requirements.txt && streamlit run frontend.py"
     environment:
-      MLFLOW_TRACKING_URI: http://localhost:5000
+      MLFLOW_TRACKING_URI: http://backend:5000
     depends_on:
       backend: 
         condition: service_healthy
 
   backend:
-    image: tester
-    working_dir: /app
-    volumes:
-      - .:/app
+    image: python:3.10
+    container_name: backend
     ports:
-      - "5000:5000"
-      - "8000:8000"
-      - "8001:8001"
-      - "8002:8002"
+      - "5000:5000"   # MLflow UI/API
+      - "8000:8000"   # AAPL model
+      - "8001:8001"   # GOOG model
+      - "8002:8002"   # MSFT model
+    volumes:
+      - .:/app/
+    working_dir: /app
     healthcheck:
-      test: ["CMD", "backend_healthcheck.sh"]
-      interval: 20s
-      timeout: 3s
-      retries: 25
+      test: >
+        bash -c '
+        curl -s -X POST http://localhost:8000/invocations -H "Content-Type: application/json" -d "{\"inputs\": [[1,2,3]]}" &&
+        curl -s -X POST http://localhost:8001/invocations -H "Content-Type: application/json" -d "{\"inputs\": [[1,2,3]]}" &&
+        curl -s -X POST http://localhost:8002/invocations -H "Content-Type: application/json" -d "{\"inputs\": [[1,2,3]]}"
+        '
+      interval: 1m
+      retries: 50
+      start_period: 1m
+      timeout: 5s
+    command: >
+      bash -c "
+        pip install -r backend_requirements.txt &&
+        mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri /app/mlruns --default-artifact-root /app/mlruns &
+        while ! curl -s http://localhost:5000; do echo 'Waiting for MLflow...'; sleep 2; done &&
+        python3 backend_server.py
+      "
+
+
     environment:
       MLFLOW_TRACKING_URI: http://localhost:5000

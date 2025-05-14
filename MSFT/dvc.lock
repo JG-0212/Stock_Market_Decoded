@@ -12,52 +12,52 @@ stages:
     outs:
     - path: ../data/MSFT/MSFT_data.csv
       hash: md5
-      md5: 207d12543bbddf7014c0f916c0d864c5
-      size: 61107
+      md5: 1b73f29284971003210a74886d203e91
+      size: 17
     - path: ../data/MSFT/MSFT_run_id.txt
       hash: md5
-      md5: 0d43ecf9bfcbd3935937faa629be23ed
+      md5: 980d25b826cdd23ff7e7cafe1e6bc2ef
       size: 32
   preprocess:
     cmd: python3 ../scripts/preprocess.py
     deps:
     - path: ../data/MSFT/MSFT_data.csv
       hash: md5
-      md5: 207d12543bbddf7014c0f916c0d864c5
-      size: 61107
+      md5: 24ddfc8b0dc4e625da23b507ff63fbfc
+      size: 61336
     - path: ../data/MSFT/MSFT_run_id.txt
       hash: md5
-      md5: 0d43ecf9bfcbd3935937faa629be23ed
+      md5: feba278f7059ea4ec7f7254eceb2babf
       size: 32
     outs:
     - path: ../data/MSFT/MSFT_scaler.pkl
       hash: md5
-      md5: 160757337f6804c246a9a5076687d3db
+      md5: fb41546bd30602b17cc3703442829e95
       size: 522
     - path: ../data/MSFT/MSFT_training_data.csv
       hash: md5
-      md5: 7dc348fd3adcc50273d49df92b9738b2
-      size: 44205
+      md5: a07cbbfc67c8012d42bde9c624b8c6da
+      size: 44148
     - path: ../data/MSFT/MSFT_val_data.csv
       hash: md5
-      md5: b00eff54f7022b3e99e2d7cfa00f31cb
-      size: 16907
+      md5: 20dd00d6b96e9ccb7b0032c6d4cb94d4
+      size: 17193
     - path: ../data/MSFT/MSFT_x_train.npy
       hash: md5
-      md5: bc369f19e365d38318edbf167d35f8f5
+      md5: 15707c3bad6705fbe097ab2db674b840
       size: 36296
     - path: ../data/MSFT/MSFT_x_val.npy
       hash: md5
-      md5: 207d19a5e97c8f792e9c80423335146e
-      size: 14096
+      md5: 1f0bc035c6ec2d8d35d79bb9595dfe89
+      size: 14336
     - path: ../data/MSFT/MSFT_y_train.npy
       hash: md5
-      md5: 5c3a5225815cf9fbb5370679116d0306
+      md5: ed07587b7c44fd86625c5e03fe6abaf0
       size: 12184
     - path: ../data/MSFT/MSFT_y_val.npy
       hash: md5
-      md5: 2b626780daee7e7b108a13c984b9022b
-      size: 4784
+      md5: 5ac5aa28e8083af2cc56950c571d999e
+      size: 4864
   train:
     cmd: python3 ../scripts/train.py
     deps:

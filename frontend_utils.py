@@ -10,7 +10,11 @@ import requests
 import matplotlib.pyplot as plt
 from mlflow.tracking import MlflowClient
 
-mlflow.set_tracking_uri("http://localhost:5000")
+try:
+    mlflow.set_tracking_uri("http://backend:5000")
+except Exception as e:
+    print(e)
+    mlflow.set_tracking_uri("http://localhost:5000")
 
 TICKER_PORT_MAP = {
     'AAPL' : 8000,
@@ -58,17 +62,22 @@ def give_preds(ticker, days):
         val_data = pd.read_csv(f)
 
     preds = []
-    #configurable
-    url = f"http://localhost:{TICKER_PORT_MAP[ticker]}/invocations"
+    url1 = f"http://backend:{TICKER_PORT_MAP[ticker]}/invocations"
+    url2 = f"http://localhost:{TICKER_PORT_MAP[ticker]}/invocations"
     
+    client = None
     while (days > 0):
         pass_input = scaler.transform(
             input[:-1].reshape(-1, 1)).reshape(1, -1).tolist()
 
-        response = requests.post(url, data=json.dumps({"inputs": pass_input}), headers={
+        try:
+            response = requests.post(url1, data=json.dumps({"inputs": pass_input}), headers={
                                  "Content-Type": "application/json"})
+        except Exception as e:
+            response = requests.post(url2, data=json.dumps({"inputs": pass_input}), headers={
+                        "Content-Type": "application/json"})
         pred = response.json()["predictions"]
-
+        client = response.json()["client_ip"]
         out = scaler.inverse_transform(pred)[0][0]
         input[-1] = out
         preds.append(out)
@@ -76,10 +85,10 @@ def give_preds(ticker, days):
 
         days -= 1
         
-    return np.array(val_data.Close[1:]), val_preds[f"{ticker}_predicted"], preds
+    return np.array(val_data.Close[1:]), val_preds[f"{ticker}_predicted"], preds, client
     
 def plot_preds(ticker, days):
-    val_data, val_preds, future_preds = give_preds(ticker,days)
+    val_data, val_preds, future_preds, client = give_preds(ticker,days)
     print("plotting predictions")
     plt.figure(figsize=(14, 5))
     plt.plot(val_preds,
@@ -93,18 +102,18 @@ def plot_preds(ticker, days):
     plt.ylabel('Price')
     plt.legend()
     plt.title('Prediction')
-    return plt.gcf()
+    return plt.gcf(), client
 
 def compare_preds(ticker_list, days):
     plt.figure(figsize=(14, 5))
     for ticker in ticker_list:
-        _, _, future_preds = give_preds(ticker,days)
+        _, _, future_preds,client = give_preds(ticker,days)
         plt.plot(future_preds,  label=ticker)
     plt.xlabel('Time')
     plt.ylabel('Price')
     plt.legend()
     plt.title('Prediction')
-    return plt.gcf()
+    return plt.gcf(), client
 
 
 if __name__ == '__main__':

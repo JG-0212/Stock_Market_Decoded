@@ -1,5 +1,4 @@
 import streamlit as st
-import socket
 import logging
 from prometheus_client import Summary, Counter, disable_created_metrics, start_http_server
 from frontend_utils import plot_preds, compare_preds, TICKER_PORT_MAP
@@ -42,13 +41,12 @@ if st.button("Predict"):
     else:
         try:
             with st.spinner("Fetching prediction..."):
-                hostname = socket.gethostname()
-                ip = socket.gethostbyname(hostname)
-                counter.labels(client=ip).inc()
-                logger.info(f"Prediction requested by client {ip} for: {selected_tickers}, days: {num_days}")
+                logger.info(f"Prediction requested by client for: {selected_tickers}, days: {num_days}")
 
                 if len(selected_tickers) == 1:
-                    fig = api_usage.time()(plot_preds)(selected_tickers[0], num_days)
+                    fig, client = api_usage.time()(plot_preds)(selected_tickers[0], num_days)
+                    counter.labels(client=client).inc()
+                    
                     if fig:
                         st.pyplot(fig)
                         logger.info(f"Successfully plotted prediction for {selected_tickers[0]}")
@@ -56,7 +54,8 @@ if st.button("Predict"):
                         st.error("Failed to generate prediction plot.")
                         logger.info(f"Plot for {selected_tickers[0]} was None")
                 else:
-                    fig = api_usage.time()(compare_preds)(selected_tickers, num_days)
+                    fig, client = api_usage.time()(compare_preds)(selected_tickers, num_days)
+                    counter.labels(client=client).inc()
                     if fig:
                         st.pyplot(fig)
                         logger.info(f"Successfully compared predictions for {selected_tickers}")

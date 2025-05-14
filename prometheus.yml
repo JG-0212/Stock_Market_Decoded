@@ -6,6 +6,6 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:18000']  # or 'localhost:8001' if not in Docker
 
-  # - job_name: 'node_exporter'
-  #   static_configs:
-  #     - targets: ['localhost:9100']
+  - job_name: 'node_exporter'
+    static_configs:
+      - targets: ['localhost:9100']

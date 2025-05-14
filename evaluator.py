@@ -1,4 +1,5 @@
 import os
+import time
 import logging
 import yfinance as yf
 
@@ -15,17 +16,23 @@ logging.basicConfig(
 
 GAMMA = 0.99
 
-def eval_today_se(ticker):
+
+def eval_today_se(ticker, ticker_data):
     try:
-        data = yf.download(ticker, period='2d', interval='1d').reset_index()[['Close']]
+        data = ticker_data.reset_index()[['Close']]
         today_actual = data.values[-1][0]
-        _, _, today_predicted = give_preds(ticker, 1)
+        _, _, today_predicted, _ = give_preds(ticker, 1)
         return (today_actual - today_predicted[0]) ** 2
     except Exception:
         logger.exception(f"Failed to evaluate squared error for {ticker}")
         return 0.0
 
+
 if __name__ == '__main__':
+    all_data = yf.download(
+        list(TICKER_PORT_MAP.keys()), period='2d', interval='1d', group_by='tickers'
+    )
+    
     for ticker in list(TICKER_PORT_MAP.keys()):
         try:
             score_path = f"evaluation/{ticker}/score.txt"
@@ -35,7 +42,7 @@ if __name__ == '__main__':
             else:
                 cur_score = 0.0
 
-            updated_score = cur_score * GAMMA + eval_today_se(ticker)
+            updated_score = cur_score * GAMMA + eval_today_se(ticker, all_data[ticker])
 
             with open(score_path, "w") as f:
                 f.write(str(updated_score))
@@ -43,3 +50,4 @@ if __name__ == '__main__':
             logger.info(f"Updated score for {ticker}: {updated_score}")
         except Exception:
             logger.exception(f"Failed to update score for {ticker}")
+
